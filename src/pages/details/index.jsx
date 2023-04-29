@@ -1,5 +1,5 @@
 import React from "react";
-import cover from "assets/images/spiderman.png";
+import cover from "assets/images/spider.png";
 import Image from "next/image";
 
 export default function Details() {
