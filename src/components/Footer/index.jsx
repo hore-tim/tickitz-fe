@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import ebv from "assets/icons/ebv.id.svg";
 import cineOne from "assets/icons/CineOne21.svg";
@@ -6,7 +7,7 @@ import hiflix from "assets/icons/hiflix.svg";
 
 export default function Footer() {
 	return (
-		<footer className="flex flex-col md:px-20 px-5 py-20 gap-y-10 w-screen">
+		<footer className="flex flex-col md:px-20 px-5 py-20 gap-y-10">
 			<section className="flex lg:flex-row flex-col lg:justify-between gap-y-10">
 				<div className="flex flex-col gap-y-5">
 					<svg
@@ -36,12 +37,12 @@ export default function Footer() {
 				<div className="flex flex-col gap-y-10">
 					<p className="font-bold">Explore</p>
 					<div className="lg:flex grid lg:flex-col grid-cols-3 gap-y-5">
-						<p className="list-none text-sm text-tickitz-basic">Cinemas</p>
-						<p className="list-none text-sm text-tickitz-basic lg:text-start text-center">
+						<p className="text-sm text-tickitz-basic">Cinemas</p>
+						<Link href={"/movies"} className="text-sm text-tickitz-basic lg:text-start text-center">
 							Movies List
-						</p>
-						<p className="list-none text-sm text-tickitz-basic lg:text-start text-end">My Ticket</p>
-						<p className="list-none text-sm text-tickitz-basic">Notification</p>
+						</Link>
+						<p className="text-sm text-tickitz-basic lg:text-start text-end">My Ticket</p>
+						<p className="text-sm text-tickitz-basic">Notification</p>
 					</div>
 				</div>
 				<div className="flex flex-col gap-y-10">
@@ -61,7 +62,7 @@ export default function Footer() {
 				<div className="flex flex-col gap-y-10">
 					<p className="font-bold">Follow Us</p>
 					<div className="flex lg:flex-col flex-row lg:items-start items-center justify-between gap-y-5">
-						<div className="flex gap-x-3">
+						<a href="https://www.facebook.com" className="flex gap-x-3">
 							<svg
 								width="24"
 								height="24"
@@ -77,8 +78,8 @@ export default function Footer() {
 							<p className="hidden lg:block font-semibold text-sm text-tickitz-label">
 								Tickitz Cinema id
 							</p>
-						</div>
-						<div className="flex gap-x-3">
+						</a>
+						<a href="https://www.instagram.com" className="flex gap-x-3">
 							<svg
 								width="24"
 								height="24"
@@ -100,8 +101,8 @@ export default function Footer() {
 								/>
 							</svg>
 							<p className="hidden lg:block font-semibold text-sm text-tickitz-label">tickitz.id</p>
-						</div>
-						<div className="flex gap-x-3">
+						</a>
+						<a href="https://www.twitter.com" className="flex gap-x-3">
 							<svg
 								width="24"
 								height="24"
@@ -115,8 +116,8 @@ export default function Footer() {
 								/>
 							</svg>
 							<p className="hidden lg:block font-semibold text-sm text-tickitz-label">tickitz.id</p>
-						</div>
-						<div className="flex gap-x-3">
+						</a>
+						<a href="https://www.youtube.com" className="flex gap-x-3">
 							<svg
 								width="24"
 								height="24"
@@ -142,7 +143,7 @@ export default function Footer() {
 							<p className="hidden lg:block font-semibold text-sm text-tickitz-label">
 								Tickitz Cinema id
 							</p>
-						</div>
+						</a>
 					</div>
 				</div>
 			</section>

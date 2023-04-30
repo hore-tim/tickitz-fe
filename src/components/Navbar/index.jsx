@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -5,7 +6,7 @@ export default function Navbar() {
 	const [isMobile, setIsMobile] = useState(false);
 
 	return (
-		<header className="navbar md:px-20 px-5">
+		<header className="navbar md:px-20 px-5 py-5">
 			<section className="navbar-start flex gap-x-20">
 				<div>
 					<svg
@@ -30,7 +31,7 @@ export default function Navbar() {
 					</svg>
 				</div>
 				<div className="lg:flex hidden gap-x-10 font-semibold text-[#414141]">
-					<p>Movies</p>
+					<Link href={"/movies"}>Movies</Link>
 					<p>Cinemas</p>
 					<p>Buy Ticket</p>
 				</div>
@@ -102,6 +103,7 @@ export default function Navbar() {
 						/>
 					</svg>
 				</div>
+				<div className={`lg:hidden fixed top-16 left-0 right-0 bottom-0 z-40 ${isMobile ? "opacity-70 bg-black h-screen" : "pointer-events-none opacity-0"}`} />
 				<div className={`nav-mobile lg:hidden ${isMobile ? "-right-0" : "right-full"}`}>
 					<div className="relative px-10">
 						<i className="bi bi-search text-xl text-tickitz-label absolute top-[11px] left-14"></i>
