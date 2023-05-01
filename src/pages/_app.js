@@ -1,5 +1,8 @@
 import "styles/globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Provider } from "react-redux";
+import store, { persistor } from "src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 import { Mulish } from "next/font/google";
 
@@ -11,8 +14,12 @@ const mulish = Mulish({
 
 export default function App({ Component, pageProps }) {
   return (
-    <div className={`${mulish.variable}`}>
-      <Component {...pageProps} />
-    </div>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <div className={`${mulish.variable}`}>
+          <Component {...pageProps} />
+        </div>
+      </PersistGate>
+    </Provider>
   );
 }

@@ -13,20 +13,20 @@ import johnWick from "assets/images/john-wick-3.png";
 import lionKing from "assets/images/lion-king.png";
 
 export default function Home({ movies }) {
-	const months = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
 	return (
 		<Layout title={"Tickitz: Buy tickets conveniently, watch movies quietly."}>
@@ -190,55 +190,55 @@ export default function Home({ movies }) {
 
 //* simulate fetch data from server
 export async function getServerSideProps() {
-	const movies = [
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
-	];
+  const movies = [
+    {
+      name: "Spiderman",
+      image: spiderman,
+      genre: ["Action", "Adventure", "Sci-Fi"],
+    },
+    {
+      name: "Lion King",
+      image: lionKing,
+      genre: ["Action", "Adventure"],
+    },
+    {
+      name: "John Wick",
+      image: johnWick,
+      genre: ["Action", "Adventure"],
+    },
+    {
+      name: "Spiderman",
+      image: spiderman,
+      genre: ["Action", "Adventure", "Sci-Fi"],
+    },
+    {
+      name: "Lion King",
+      image: lionKing,
+      genre: ["Action", "Adventure"],
+    },
+    {
+      name: "John Wick",
+      image: johnWick,
+      genre: ["Action", "Adventure"],
+    },
+    {
+      name: "Spiderman",
+      image: spiderman,
+      genre: ["Action", "Adventure", "Sci-Fi"],
+    },
+    {
+      name: "Lion King",
+      image: lionKing,
+      genre: ["Action", "Adventure"],
+    },
+    {
+      name: "John Wick",
+      image: johnWick,
+      genre: ["Action", "Adventure"],
+    },
+  ];
 
-	return {
-		props: { movies },
-	};
+  return {
+    props: { movies },
+  };
 }
