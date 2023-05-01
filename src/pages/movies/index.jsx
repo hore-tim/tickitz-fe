@@ -77,17 +77,31 @@ export default function MovieList() {
 			<div className="">
 				<Navbar />
 				<main className="flex flex-col">
-					<section className="flex md:flex-row flex-col gap-y-5 justify-between md:px-20 px-5 py-10 bg-[#F5F6F8]">
+					<section className="flex lg:flex-row flex-col gap-y-5 justify-between md:px-20 px-5 py-10 bg-[#F5F6F8]">
 						<div>
 							<p className="font-bold text-2xl text-tickitz-primary">Movies List</p>
 						</div>
-						<div className="relative">
-							<i className="bi bi-search absolute top-[7px] left-2 text-xl text-tickitz-primary"></i>
-							<input
-								type="text"
-								placeholder="Search here..."
-								className="appearance-none focus:outline-none border-transparent pl-10 pr-4 py-2 rounded-md"
-							/>
+						<div className="flex lg:flex-row flex-col gap-y-3 gap-x-3">
+							<div className="relative w-full">
+								<i className="bi bi-search absolute top-[7px] left-2 text-xl text-tickitz-primary"></i>
+								<input
+									type="text"
+									placeholder="Search here..."
+									className="appearance-none focus:outline-none border-transparent pl-10 w-full pr-4 py-2 rounded-md"
+								/>
+							</div>
+							<div className="relative w-full">
+								<i className="bi bi-caret-down absolute top-[10px] right-[10px] pointer-events-none"></i>
+								<select
+									className="border border-gray-300 rounded-md text-gray-600 h-10 pl-5 w-full bg-white hover:border-gray-400 focus:outline-none appearance-none"
+									name="filter"
+									id="filter"
+								>
+									<option value="">Filter by</option>
+									<option value="showing">Showing</option>
+									<option value="upcoming">Upcoming</option>
+								</select>
+							</div>
 						</div>
 					</section>
 					<section className="py-10">
