@@ -1,12 +1,142 @@
 import React from "react";
-import cover from "assets/images/spider.png";
+import cover from "assets/images/spiderman.png";
 import Image from "next/image";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
+import ebv from "assets/icons/ebv.id.svg";
+import hiflix from "assets/icons/hiflix.svg";
+import cineone from "assets/icons/CineOne21.svg";
+import CardBrand from "components/CardBrand";
 
 export default function Details() {
+  const cardData = [
+    {
+      name: "Ebv",
+      address: "Whatever street No.12, South Purwokerto",
+      image: ebv,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Hiflix",
+      address: "Whatever street No.12, South Purwokerto",
+      image: hiflix,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Ebv",
+      address: "Whatever street No.12, South Purwokerto",
+      image: ebv,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Hiflix",
+      address: "Whatever street No.12, South Purwokerto",
+      image: hiflix,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Ebv",
+      address: "Whatever street No.12, South Purwokerto",
+      image: ebv,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Hiflix",
+      address: "Whatever street No.12, South Purwokerto",
+      image: hiflix,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "Ebv",
+      address: "Whatever street No.12, South Purwokerto",
+      image: ebv,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+    {
+      name: "CineOne21",
+      address: "Whatever street No.12, South Purwokerto",
+      image: cineone,
+      price: 30000,
+      showtime: [
+        "08.10am",
+        "09.20am",
+        "10.00am",
+        "11.10am",
+        "12.40am",
+        "14.10am",
+        "14.50am",
+      ],
+    },
+  ];
+
   return (
     <>
-      <main className=" px-8 md:px-[4.4rem] flex flex-col mt-32">
-        <section className=" flex flex-col lg:flex-row gap-14 justify-center lg:justify-normal items-center lg:items-start">
+      <Navbar />
+      <main className=" flex flex-col mt-32">
+        <section className=" flex flex-col lg:flex-row gap-14 justify-center lg:justify-normal items-center lg:items-start px-8 md:px-[4.4rem]">
           <div className=" border-2 border-solid border-tickitz-greyBorder rounded-3xl p-12 justify-center items-center flex w-fit">
             <div className=" w-[14.75rem] h-[22.625] rounded-[0.68rem] overflow-hidden">
               <Image
@@ -63,8 +193,53 @@ export default function Details() {
             </div>
           </div>
         </section>
-        <section className=" bg-tickitz-bgDetail"></section>
+        <section className=" bg-tickitz-bgDetail w-full py-[4.5rem]  px-8 md:px-[4.4rem]">
+          <h1 className=" text-2xl text-tickitz-darkTitle font-bold text-center">
+            Showtimes and Tickets
+          </h1>
+          <div className=" flex gap-7 mt-10 justify-center cursor-pointer px-3">
+            <div className=" flex justify-center items-center gap-3 bg-[#EFF0F6] w-72 h-14 rounded-md px-6">
+              <i className="bi bi-calendar4 text-[1.5rem]"></i>
+              <input
+                name="date"
+                type="date"
+                className=" outline-none bg-[#EFF0F6] cursor-pointer"
+              />
+            </div>
+            <div className="flex justify-between items-center gap-3 bg-[#EFF0F6] w-72 h-14 rounded-md px-6 cursor-pointer">
+              <div className=" flex gap-1 justify-center items-center">
+                <i className="bi bi-geo-alt-fill text-[1.2rem]"></i>
+                <p className="text-[1rem]">Purwokerto</p>
+              </div>
+              <div>
+                <i className="bi bi-chevron-compact-down"></i>
+              </div>
+            </div>
+          </div>
+          <section className=" flex mt-[4.6rem] justify-center gap-8 flex-wrap w-full">
+            {cardData.map((data, idx) => {
+              return (
+                <CardBrand
+                  key={idx}
+                  name={data.name}
+                  address={data.address}
+                  image={data.image}
+                  price={data.price}
+                  showtime={data.showtime}
+                />
+              );
+            })}
+          </section>
+          <div className=" flex gap-12 py-12 w-full items-center">
+            <div className=" w-full h-[1px] bg-tickitz-label"></div>
+            <div className=" w-max">
+              <p className=" text-tickitz-primary font-bold w-max">View More</p>
+            </div>
+            <div className=" w-full h-[1px] bg-tickitz-label"></div>
+          </div>
+        </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -1,17 +1,84 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/tickitzyn2.svg";
 import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
+import { register } from "utils/https/auth";
+import { useRouter } from "next/router";
+import swal from "sweetalert";
 
 export default function Signup() {
+  const controller = useMemo(() => new AbortController(), []);
+  const router = useRouter();
   const [iconEye, setIconEye] = useState(false);
   const toggleIcon = () => {
     iconEye ? setIconEye(false) : setIconEye(true);
   };
+  const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState({ email: "", password: "" });
+
+  const handleChecked = (e) => {
+    setIsChecked(e.target.checked);
+  };
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const invalid = { email: "", password: "" };
+    if (!email) {
+      setIsLoading(false);
+      invalid.email = "Email is required";
+    }
+    if (!password) {
+      setIsLoading(false);
+      invalid.password = "Password is required";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setIsLoading(false);
+      invalid.email = "Invalid email";
+    }
+    if (password.length < 4) {
+      setIsLoading(false);
+      invalid.password = "Password of at least 4 characters!";
+    }
+    setError({ email: invalid.email, password: invalid.password });
+
+    if (invalid.email === "" && invalid.password === "") {
+      register(email, password, controller)
+        .then((res) => {
+          console.log(res);
+          swal(
+            "Success",
+            "Register successful, check your email to activation",
+            "success"
+          );
+          // return router.push("/login");
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          return swal("Failed", err.response.data.msg, "error");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  };
+
   return (
     <>
       <main className=" flex w-full h-full ">
@@ -85,7 +152,11 @@ export default function Signup() {
           <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
             <Image src={brandingFill} width={200} alt="brandd" />
           </div>
-          <form action="" className=" w-full  flex flex-col px-[10%]">
+          <form
+            action=""
+            className=" w-full  flex flex-col px-[10%]"
+            onSubmit={handleRegister}
+          >
             <h1 className=" text-[1.7rem] font-semibold lg:mt-[9.5rem] flex text-tickitz-basic">
               Fill your additional details
             </h1>
@@ -98,8 +169,11 @@ export default function Signup() {
                   Email
                 </label>
                 <input
+                  onChange={onChangeEmail}
+                  name="email"
+                  value={email}
                   type="text"
-                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5"
+                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5 outline-none"
                   placeholder="Input Your Email"
                 />
               </div>
@@ -112,7 +186,10 @@ export default function Signup() {
                 </label>
                 <input
                   type={`${iconEye ? "text" : "password"}`}
-                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5  "
+                  name="password"
+                  onChange={onChangePassword}
+                  value={password}
+                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5 outline-none"
                   placeholder="Input Your Password"
                 />
                 <i
@@ -127,7 +204,8 @@ export default function Signup() {
                   <input
                     type="checkbox"
                     name="agree"
-                    className="checkbox outline-tickitz-primary checked:bg-tickitz-primary "
+                    onChange={handleChecked}
+                    className="checkbox"
                   />
                   <span className="label-text text-lg text-tickitz-label">
                     I agree to terms & conditions
@@ -136,6 +214,8 @@ export default function Signup() {
               </div>
               <div className=" w-full">
                 <button
+                  disabled={isChecked === false}
+                  // onClick={}
                   type="submit"
                   className=" w-full h-16 btn bg-tickitz-primary hover:bg-tickitz-primary rounded-md text-white font-bold"
                 >

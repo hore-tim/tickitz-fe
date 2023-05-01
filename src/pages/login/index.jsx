@@ -1,16 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/tickitzyn2.svg";
 import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
+import { login } from "utils/https/auth";
+import { authAction } from "redux/slices/auth";
+import { useDispatch } from "react-redux";
+import swal from "sweetalert";
 
 export default function Login() {
   const [iconEye, setIconEye] = useState(false);
   const toggleIcon = () => {
     iconEye ? setIconEye(false) : setIconEye(true);
   };
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+
+  const [formLogin, setFormLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onChangeForm = (e) =>
+    setFormLogin((form) => {
+      // setInput(true);
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+    });
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    dispatch(
+      authAction.doLogin({
+        email: formLogin.email,
+        password: formLogin.password,
+      })
+    )
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        swal("Success", res.msg, "success");
+      })
+      .catch((error) => {
+        console.log(error);
+        return swal("Failed", error.response.data.msg, "error");
+      });
+  };
+
   return (
     <>
       <main className=" flex w-full h-full ">
@@ -30,8 +73,12 @@ export default function Login() {
           <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
             <Image src={brandingFill} width={200} alt="brandd" />
           </div>
-          <form action="" className=" w-full  flex flex-col px-[10%]">
-            <h1 className=" text-[1.7rem] md:text-5xl font-semibold text-tickitz-basic lg:mt-[9.5rem] flex">
+          <form
+            onSubmit={handleLogin}
+            action=""
+            className=" w-full  flex flex-col px-[10%]"
+          >
+            <h1 className=" text-[1.7rem] md:text-5xl font-semibold text-tickitz-basic md:mt-16 lg:mt-[9.5rem] flex">
               Sign In
             </h1>
             <p className=" text-lg opacity-70 text-tickitz-label mt-4 flex">
@@ -40,27 +87,33 @@ export default function Login() {
             <div className=" flex flex-col gap-7">
               <div className=" flex flex-col justify-center  w-full mt-5 lg:mt-12 ">
                 <label
-                  htmlFor=""
+                  htmlFor="email"
                   className=" mb-3 text-base text-tickitz-basic"
                 >
                   Email
                 </label>
                 <input
+                  name="email"
+                  onChange={onChangeForm}
+                  // value={email}
                   type="text"
-                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5"
+                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5 outline-none"
                   placeholder="Input Your Email"
                 />
               </div>
               <div className=" flex flex-col justify-center relative">
                 <label
-                  htmlFor=""
+                  htmlFor="password"
                   className=" mb-3 text-base text-tickitz-basic"
                 >
                   Password
                 </label>
                 <input
+                  name="password"
+                  onChange={onChangeForm}
+                  // value={password}
                   type={`${iconEye ? "text" : "password"}`}
-                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5  "
+                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5 outline-none"
                   placeholder="Input Your Password"
                 />
                 <i
