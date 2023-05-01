@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
-import brandingFill from "assets/icons/tickitzyn2.svg";
+import brandingFill from "assets/icons/Tickitzyn2.svg";
 import { useRouter } from "next/router";
 import { verify } from "utils/https/auth";
 
