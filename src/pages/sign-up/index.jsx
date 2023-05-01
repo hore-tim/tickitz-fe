@@ -3,7 +3,7 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
-import brandingFill from "assets/icons/tickitzyn2.svg";
+import brandingFill from "assets/icons/Tickitzyn2.svg";
 import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
 import { register } from "utils/https/auth";
