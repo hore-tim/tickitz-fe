@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -125,7 +126,7 @@ export default function Profile() {
 						<span className="border-b-2 border-b-tickitz-primary w-full"></span>
 					</div>
 					<div className="cursor-pointer flex flex-col gap-y-5">
-						<p className="text-sm text-[#AAAAAA]">Order History</p>
+						<Link href={"/history"} className="text-lg text-[#AAAAAA]">Order History</Link>
 						<span className=""></span>
 					</div>
 				</div>
@@ -139,7 +140,7 @@ export default function Profile() {
 								<span className="border-b-2 border-b-tickitz-primary w-full"></span>
 							</div>
 							<div className="cursor-pointer flex flex-col gap-y-5">
-								<p className="text-lg text-[#AAAAAA]">Order History</p>
+								<Link href={"/history"} className="text-lg text-[#AAAAAA]">Order History</Link>
 								<span className=""></span>
 							</div>
 						</div>

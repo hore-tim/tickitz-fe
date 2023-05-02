@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
@@ -31,7 +32,7 @@ export default function History() {
 				<Navbar />
 				<div className="board-tab lg:hidden gap-x-20 border-b border-b-[#DEDEDE] flex md:justify-between md:px-20 px-5 pt-10">
 					<div className="cursor-pointer flex flex-col gap-y-5">
-						<p className="text-sm text-[#AAAAAA]">Details Account</p>
+						<Link href={"/profile"} className="text-lg text-[#AAAAAA]">Details Account</Link>
 						<span className=""></span>
 					</div>
 					<div className="cursor-pointer flex flex-col gap-y-5">
@@ -44,7 +45,7 @@ export default function History() {
 					<section className="lg:bg-white bg-transparent lg:w-2/3 w-full flex flex-col rounded-md shadow-[0px,8px,32px,rgba(186,186,186,0.08)] py-12 gap-y-10">
 						<div className="board-tab lg:flex gap-x-20 border-b border-b-[#DEDEDE] hidden px-8">
 							<div className="cursor-pointer flex flex-col gap-y-5">
-								<p className="text-lg text-[#AAAAAA]">Account Settings</p>
+								<Link href={"/profile"} className="text-lg text-[#AAAAAA]">Account Settings</Link>
 								<span className=""></span>
 							</div>
 							<div className="cursor-pointer flex flex-col gap-y-5">
