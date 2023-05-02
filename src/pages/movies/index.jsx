@@ -1,14 +1,41 @@
 import Image from "next/image";
+import { useState, useEffect, useMemo } from "react";
+import debounce from "lodash.debounce";
+
+import { getAllMovies } from "utils/https/movies";
 
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
 
-import spiderman from "assets/images/spiderman.png";
-import johnWick from "assets/images/john-wick-3.png";
-import lionKing from "assets/images/lion-king.png";
-
 export default function MovieList() {
+	const controller = useMemo(() => new AbortController(), []);
+
+	const [movieData, setMovieData] = useState([])
+	const [sort, setSort] = useState("")
+	const [search, setSearch] = useState("")
+	const [page, setPage] = useState(1);
+	const [pagination, setPagination] = useState([])
+
+	useEffect(() => {
+		getAllMovies(10, sort, page, search, controller).
+		then((res) => {
+			setMovieData(res["data"]["data"])
+			setPagination(res["data"]["meta"])
+		}).catch((err) => console.log(err))
+	}, [search, sort, page, controller])
+
+	const handleSort = (e) => {
+		let value = e.target.value;
+		setSort(value);
+	};
+
+	const handleSearch = (e) => {
+		setSearch(e.target.value);
+	};
+
+	const debouncedSearch = useMemo(() => debounce(handleSearch, 1000), []);
+
 	const months = [
 		"January",
 		"February",
@@ -22,54 +49,6 @@ export default function MovieList() {
 		"October",
 		"November",
 		"December",
-	];
-
-	const movies = [
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "Spiderman",
-			image: spiderman,
-			genre: ["Action", "Adventure", "Sci-Fi"],
-		},
-		{
-			name: "Lion King",
-			image: lionKing,
-			genre: ["Action", "Adventure"],
-		},
-		{
-			name: "John Wick",
-			image: johnWick,
-			genre: ["Action", "Adventure"],
-		},
 	];
 
 	return (
@@ -86,6 +65,7 @@ export default function MovieList() {
 								<i className="bi bi-search absolute top-[7px] left-2 text-xl text-tickitz-primary"></i>
 								<input
 									type="text"
+									onChange={debouncedSearch}
 									placeholder="Search here..."
 									className="appearance-none focus:outline-none border-transparent pl-10 w-full pr-4 py-2 rounded-md"
 								/>
@@ -93,13 +73,18 @@ export default function MovieList() {
 							<div className="relative w-full">
 								<i className="bi bi-caret-down absolute top-[10px] right-[10px] pointer-events-none"></i>
 								<select
+									onChange={handleSort}
+									name="sort"
 									className="border border-gray-300 rounded-md text-gray-600 h-10 pl-5 w-full bg-white hover:border-gray-400 focus:outline-none appearance-none"
-									name="filter"
 									id="filter"
 								>
 									<option value="">Filter by</option>
-									<option value="showing">Showing</option>
-									<option value="upcoming">Upcoming</option>
+									<option value="name_asc">Name Ascending</option>
+									<option value="name_desc">Name Descending</option>
+									<option value="release_asc">Release Asc</option>
+									<option value="release_desc">Release Desc</option>
+									<option value="duration_asc">Duration Asc</option>
+									<option value="duration_desc">Duration Desc</option>
 								</select>
 							</div>
 						</div>
@@ -122,27 +107,28 @@ export default function MovieList() {
 					<section className="py-10 min-h-screen">
 						<div className="md:px-20 px-5">
 							<div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:gap-10 gap-5">
-								{movies.map((movie, index) => {
+								{movieData.map((movie) => {
 									return (
 										<div
-											key={index}
+											key={movieData && movie.id}
 											className="flex flex-col items-center gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5"
 										>
-											<figure>
+											<figure className="relative overflow-hidden h-[224px] w-[159px]">
 												<Image
 													alt="movie-poster"
-													src={movie.image}
-													width={159}
-													height={224}
+													src={movieData && movie.movies_image}
+													fill={true}
+													priority={true}
+													sizes="159px"
 													className="rounded-md"
 												/>
 											</figure>
 											<div className="flex flex-col">
 												<p className="font-bold text-lg text-tickitz-darkTitle text-center">
-													{movie.name}
+													{movieData && movie.title}
 												</p>
 												<p className="text-xs text-[#A0A3BD] text-center">
-													{movie.genre.join(", ")}
+													{movieData && movie.category}
 												</p>
 											</div>
 											<div className="flex flex-col gap-y-3">
@@ -162,10 +148,10 @@ export default function MovieList() {
 					<section className="py-10">
 						<div className="flex flex-col items-center gap-y-3">
 							<div className="btn-group">
-								<button className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
+								<button disabled={pagination.page === 1} onClick={() => setPage(page - 1)} className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
 									Prev
 								</button>
-								<button className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
+								<button disabled={pagination.page === pagination.totalPage || pagination.totalPage === 0} onClick={() => setPage(page + 1)} className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
 									Next
 								</button>
 							</div>
