@@ -1,9 +1,120 @@
+import { useRouter } from "next/router";
+import { useState, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import { getProfileData, changeProfileData, changePassword } from "utils/https/user";
+
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
 import Sidebar from "components/Sidebar";
 
 export default function Profile() {
+	const router = useRouter();
+
+	const token = useSelector((state) => state.auth.data.token);
+
+	const controller = useMemo(() => new AbortController(), []);
+
+	const [visible1, setVisible1] = useState(false);
+	const [visible2, setVisible2] = useState(false);
+	const [visible3, setVisible3] = useState(false);
+	const [profileData, setProfileData] = useState({});
+	const [detailsForm, setDetailsForm] = useState({
+		first_name: "",
+		last_name: "",
+		prefix: "",
+		phoneNum: "",
+	});
+	const [passwordForm, setPasswordForm] = useState({
+		oldPassword: "",
+		newPassword: "",
+		confirmPassword: "",
+	});
+
+	const phoneNumber = profileData["phone"];
+
+	useEffect(() => {
+		getProfileData(token, controller)
+			.then((res) => {
+				setProfileData(res["data"]["data"][0]);
+			})
+			.catch((err) => console.log(err));
+	}, [token, controller]);
+
+	const onDetailsFormChange = (e) => {
+		const { name, value } = e.target;
+		setDetailsForm((prevForm) => ({ ...prevForm, [name]: value }));
+	};
+
+	const onPasswordChange = (e) => {
+		const { name, value } = e.target;
+		setPasswordForm((prevForm) => ({ ...prevForm, [name]: value }));
+	};
+
+	const updateHandler = (e) => {
+		e.preventDefault();
+
+		const isDetailsFormEmpty = Object.values(detailsForm).some((value) => value === "");
+		const isPasswordFormEmpty = Object.values(passwordForm).every((value) => value === "");
+
+		const phone = detailsForm.prefix + detailsForm.phoneNum;
+
+		if (isPasswordFormEmpty === true) {
+			toast.promise(
+				changeProfileData(
+					detailsForm.first_name || profileData.first_name,
+					detailsForm.last_name || profileData.last_name,
+					phone || profileData.phone,
+					token,
+					controller
+				),
+				{
+					pending: "Please wait...",
+					success: {
+						render({ data }) {
+							setTimeout(() => {
+								router.reload();
+							}, 3000);
+							console.log(data["data"]["msg"]);
+							return data["data"]["msg"];
+						},
+					},
+					error: {
+						render({ data }) {
+							console.log(data["data"]);
+							return data["data"];
+						},
+					},
+				}
+			);
+		} else if (isDetailsFormEmpty === true) {
+			toast.promise(changePassword(passwordForm, token, controller), {
+				pending: "Please wait...",
+				success: {
+					render({ data }) {
+						setTimeout(() => {
+							setPasswordForm({ oldPassword: "", newPassword: "", confirmPassword: "" });
+							router.reload();
+						}, 3000);
+						return data["data"]["msg"];
+					},
+				},
+				error: {
+					render({ data }) {
+						setTimeout(() => {
+							setPasswordForm({ oldPassword: "", newPassword: "", confirmPassword: "" });
+							router.reload();
+						}, 3000);
+						const errResponse = data["response"]["data"]["msg"];
+						return errResponse === "Password old Salah" && "Wrong old password";
+					},
+				},
+			});
+		}
+	};
+
 	return (
 		<Layout title={"Your Profile"}>
 			<div className="">
@@ -42,6 +153,9 @@ export default function Profile() {
 									<label className="text-tickitz-basic">First Name</label>
 									<input
 										type="text"
+										name="first_name"
+										onChange={onDetailsFormChange}
+										defaultValue={profileData.first_name && profileData.first_name}
 										className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4"
 									/>
 								</div>
@@ -49,6 +163,9 @@ export default function Profile() {
 									<label className="text-tickitz-basic">Last Name</label>
 									<input
 										type="text"
+										name="last_name"
+										onChange={onDetailsFormChange}
+										defaultValue={profileData.last_name && profileData.last_name}
 										className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4"
 									/>
 								</div>
@@ -56,6 +173,7 @@ export default function Profile() {
 									<label className="text-tickitz-basic">E-mail</label>
 									<input
 										type="email"
+										defaultValue={profileData.email && profileData.email}
 										className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4"
 									/>
 								</div>
@@ -63,15 +181,39 @@ export default function Profile() {
 									<label className="text-tickitz-basic">Phone Number</label>
 									<div className="flex">
 										<div className="relative w-1/5">
-											<select className="appearance-none focus:outline-none dropd text-[#4E4B66] bg-[#FCFDFE] py-4 lg:px-4 px-2 border border-r-transparent rounded-l-md w-full">
-												<option value="+62">+62</option>
-												<option value="+65">+65</option>
-												<option value="+1">+1</option>
+											<select
+												name="prefix"
+												onChange={onDetailsFormChange}
+												className="appearance-none focus:outline-none dropd text-[#4E4B66] bg-[#FCFDFE] py-4 lg:px-4 px-2 border border-r-transparent rounded-l-md w-full"
+											>
+												<option
+													selected={profileData.phone && phoneNumber.startsWith("+62")}
+													value="+62"
+												>
+													+62
+												</option>
+												<option
+													selected={profileData.phone && phoneNumber.startsWith("+65")}
+													value="+65"
+												>
+													+65
+												</option>
+												<option
+													selected={profileData.phone && phoneNumber.startsWith("+1")}
+													value="+1"
+												>
+													+1
+												</option>
 											</select>
 											<div className="absolute top-[-15px] left-[66px] h-1/2 w-[1px] bg-[#DEDEDE] transform rotate-180 origin-bottom-left"></div>
 										</div>
 										<input
 											type="tel"
+											name="phoneNum"
+											onChange={onDetailsFormChange}
+											defaultValue={
+												profileData.phone && profileData.phone.replace(/^\+62|\+65|\+1/, "")
+											}
 											className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] border-l-transparent rounded-r-md p-4 w-4/5"
 										/>
 									</div>
@@ -83,33 +225,83 @@ export default function Profile() {
 								<p className="text-tickitz-darkTitle">Accounts and Privacy</p>
 								<div className="divider h-[1px] w-full bg-[#DEDEDE]"></div>
 							</div>
-							<div className="flex lg:flex-row flex-col gap-y-5 gap-x-5">
-								<div className="flex flex-col gap-y-2 lg:w-1/2">
+							<div className="lg:grid flex lg:grid-cols-2 flex-col gap-y-5 gap-x-5">
+								<div className="flex flex-col gap-y-2">
+									<label className="text-tickitz-basic">Old Password</label>
+									<div className="old-password relative">
+										<input
+											type={visible1 ? "text" : "password"}
+											name="oldPassword"
+											onChange={onPasswordChange}
+											placeholder="Write your old password"
+											className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4 w-full"
+										/>
+										{visible1 ? (
+											<i
+												onClick={() => setVisible1(!visible1)}
+												className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										) : (
+											<i
+												onClick={() => setVisible1(!visible1)}
+												className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										)}
+									</div>
+								</div>
+								<div className="flex flex-col gap-y-2">
 									<label className="text-tickitz-basic">New Password</label>
 									<div className="new-password relative">
 										<input
-											type="password"
-											placeholder="Write your password"
+											type={visible2 ? "text" : "password"}
+											name="newPassword"
+											onChange={onPasswordChange}
+											placeholder="Write your new password"
 											className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4 w-full"
 										/>
-										<i className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px]"></i>
+										{visible2 ? (
+											<i
+												onClick={() => setVisible2(!visible2)}
+												className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										) : (
+											<i
+												onClick={() => setVisible2(!visible2)}
+												className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										)}
 									</div>
 								</div>
-								<div className="flex flex-col gap-y-2 lg:w-1/2">
+								<div className="flex flex-col gap-y-2">
 									<label className="text-tickitz-basic">Confirm Password</label>
 									<div className="confirm-password relative">
 										<input
-											type="password"
-											placeholder="Confirm your password"
+											type={visible3 ? "text" : "password"}
+											name="confirmPassword"
+											onChange={onPasswordChange}
+											placeholder="Confirm your new password"
 											className="appearance-none focus:outline-none border border-[#DEDEDE] bg-[#FCFDFE] rounded p-4 w-full"
 										/>
-										<i className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px]"></i>
+										{visible3 ? (
+											<i
+												onClick={() => setVisible3(!visible3)}
+												className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										) : (
+											<i
+												onClick={() => setVisible3(!visible3)}
+												className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
+											></i>
+										)}
 									</div>
 								</div>
 							</div>
 						</div>
 						<div className="lg:w-1/2 md:px-8 px-4">
-							<button className="btn normal-case border-transparent bg-tickitz-primary text-white hover:text-tickitz-primary w-full">
+							<button
+								onClick={(e) => updateHandler(e)}
+								className="btn normal-case border-transparent bg-tickitz-primary text-white hover:text-tickitz-primary w-full"
+							>
 								Update Changes
 							</button>
 						</div>
