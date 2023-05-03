@@ -7,7 +7,6 @@ import Footer from "components/Footer";
 import hiflix from "assets/icons/hiflix.svg";
 import cineone from "assets/icons/CineOne21.svg";
 import ebv from "assets/icons/ebv.id.svg";
-import NavSubLogin from "components/NavSubLogin";
 import Title from "utils/wrapper/title";
 function ListCategory({ name, listCategory, handleClick }) {
   const isCategory = listCategory && listCategory.includes(name);
