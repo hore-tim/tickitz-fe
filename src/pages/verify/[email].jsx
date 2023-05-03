@@ -1,29 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/tickitzyn2.svg";
 import { useRouter } from "next/router";
 import { verify } from "utils/https/auth";
+import swal from "sweetalert";
 
 export default function Verify() {
   const controller = useMemo(() => new AbortController(), []);
   const router = useRouter();
-  const email = router.pathname;
+  const email = router.query.email;
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  // console.log(router.query.email);
   const onChangeOtp = (e) => {
     setOtp(e.target.value);
   };
 
   const handleVerify = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    verify(otp, controller)
+    verify(otp, email, controller)
       .then((res) => {
+        setIsLoading(true);
         console.log(res);
         swal("Success", "Activation account success", "success");
         return router.push("/login");
@@ -78,9 +79,11 @@ export default function Verify() {
                   <div className="flex flex-col justify-center">
                     <div className=" flex gap-12">
                       <div className="bg-white border-white border-2 rounded-full w-12 h-12 justify-center items-center flex text-xl ">
-                        <p className=" text-center text-white font-bold">2</p>
+                        <p className=" text-center text-tickitz-label font-bold">
+                          2
+                        </p>
                       </div>
-                      <div className=" text-tickitz-label font-medium xl:text-2xl flex items-center lg:text-base">
+                      <div className=" text-white font-medium xl:text-2xl flex items-center lg:text-base">
                         <p>Activate your account</p>
                       </div>
                     </div>

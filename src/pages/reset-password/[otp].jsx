@@ -1,10 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/tickitzyn2.svg";
+import { resetPwd } from "utils/https/auth";
+import swal from "sweetalert";
+import Loader from "components/Loader";
 
 export default function Otp() {
   const [iconEye, setIconEye] = useState(false);
@@ -15,8 +19,50 @@ export default function Otp() {
   const toggleIcon2 = () => {
     iconEye2 ? setIconEye2(false) : setIconEye2(true);
   };
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const controller = useMemo(() => new AbortController(), []);
+  const router = useRouter();
+  const otp = router.query.otp;
+  const onChangeNewPwd = (e) => {
+    setNewPassword(e.target.value);
+  };
+  const onChangeConfirmPwd = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleResetPwd = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (newPassword.length < 4 || confirmPassword.length < 4) {
+      setIsLoading(false);
+      swal("Failed", "Password of at least 4 characters!", "error");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      swal("Failed", "Passwords doesn't match!", "error");
+      setIsLoading(false);
+      return;
+    }
+    resetPwd(otp, newPassword, confirmPassword, controller)
+      .then((res) => {
+        setIsLoading(true);
+        console.log(res);
+        swal("Success", "Reset Password Success", "success");
+        return router.push("/login");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        return swal("Failed", err.response.data.msg, "error");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <main className=" flex w-full h-full ">
         <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
           <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
@@ -108,7 +154,11 @@ export default function Otp() {
           <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
             <Image src={brandingFill} width={200} alt="brandd" />
           </div>
-          <form action="" className=" w-full  flex flex-col px-[10%]">
+          <form
+            action=""
+            className=" w-full  flex flex-col px-[10%]"
+            onSubmit={handleResetPwd}
+          >
             <h1 className=" text-[1.7rem] font-semibold lg:mt-[9.5rem] flex text-tickitz-basic">
               Reset Password
             </h1>
@@ -118,12 +168,15 @@ export default function Otp() {
             <div className=" flex flex-col gap-7 mt-12">
               <div className=" flex flex-col justify-center relative">
                 <label
-                  htmlFor=""
+                  htmlFor="newPassword"
                   className=" mb-3 text-base text-tickitz-basic"
                 >
                   New Password
                 </label>
                 <input
+                  name="newPassword"
+                  onChange={onChangeNewPwd}
+                  value={newPassword}
                   type={`${iconEye ? "text" : "password"}`}
                   className=" h-16 rounded-md border border-tickitz-label flex w-full p-5  "
                   placeholder="Input New Password"
@@ -137,12 +190,15 @@ export default function Otp() {
               </div>
               <div className=" flex flex-col justify-center relative">
                 <label
-                  htmlFor=""
+                  htmlFor="confirmPassword"
                   className=" mb-3 text-base text-tickitz-basic"
                 >
                   Confirm New Password
                 </label>
                 <input
+                  name="confirmPassword"
+                  onChange={onChangeConfirmPwd}
+                  value={confirmPassword}
                   type={`${iconEye2 ? "text" : "password"}`}
                   className=" h-16 rounded-md border border-tickitz-label flex w-full p-5  "
                   placeholder="Input New Password"

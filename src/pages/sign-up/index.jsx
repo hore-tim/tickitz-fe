@@ -3,12 +3,13 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
-import brandingFill from "assets/icons/tickitzyn2.svg";
+import brandingFill from "assets/icons/Tickitzyn2.svg";
 import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
 import { register } from "utils/https/auth";
 import { useRouter } from "next/router";
 import swal from "sweetalert";
+import Loader from "components/Loader";
 
 export default function Signup() {
   const controller = useMemo(() => new AbortController(), []);
@@ -22,65 +23,73 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ email: "", password: "" });
-
+  const [input, setInput] = useState(null);
   const handleChecked = (e) => {
     setIsChecked(e.target.checked);
   };
 
   const onChangeEmail = (e) => {
+    setInput(true);
     setEmail(e.target.value);
   };
 
   const onChangePassword = (e) => {
+    setInput(true);
     setPassword(e.target.value);
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const invalid = { email: "", password: "" };
-    if (!email) {
-      setIsLoading(false);
-      invalid.email = "Email is required";
+    console.log(email);
+    if (email == "") {
+      setIsLoading(false),
+        setInput(false),
+        swal("Failed", "Email is required", "error");
+      return;
     }
     if (!password) {
       setIsLoading(false);
-      invalid.password = "Password is required";
+      setInput(false), swal("Failed", "Password is required", "error");
+      return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setIsLoading(false);
-      invalid.email = "Invalid email";
+      setIsLoading(false),
+        setInput(false),
+        swal("Failed", "Invalid Email", "error");
+      return;
     }
     if (password.length < 4) {
       setIsLoading(false);
-      invalid.password = "Password of at least 4 characters!";
+      setIsLoading(false),
+        setInput(false),
+        swal("Failed", "Password of at least 4 characters!", "error");
+      return;
     }
-    setError({ email: invalid.email, password: invalid.password });
-
-    if (invalid.email === "" && invalid.password === "") {
-      register(email, password, controller)
-        .then((res) => {
-          console.log(res);
-          swal(
-            "Success",
-            "Register successful, check your email to activation",
-            "success"
-          );
-          // return router.push("/login");
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          return swal("Failed", err.response.data.msg, "error");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+    register(email, password, controller)
+      .then((res) => {
+        console.log(res);
+        swal(
+          "Success",
+          "Register successful, check your email to activation",
+          "success"
+        );
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+        return swal("Failed", err.response.data.msg, "error");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <main className=" flex w-full h-full ">
         <section className=" hero-auth hidden lg:flex w-[58%] flex-col ">
           <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
@@ -168,12 +177,15 @@ export default function Signup() {
                 >
                   Email
                 </label>
+                {/* {console.log(email)} */}
                 <input
                   onChange={onChangeEmail}
                   name="email"
                   value={email}
                   type="text"
-                  className=" h-16 rounded-md border border-tickitz-label flex w-full p-5 outline-none"
+                  className={`h-16 rounded-md border flex w-full p-5 outline-none ${
+                    email == "" && "border-tickitz-label"
+                  }`}
                   placeholder="Input Your Email"
                 />
               </div>

@@ -35,3 +35,19 @@ export const login = (email, password) => {
     },
   });
 };
+
+export const forgot = (email, controller) => {
+  const url = `${baseUrl}/forgot`;
+  const body = { email, link_direct: `${verifyUrl}/reset-password` };
+  return axios.patch(url, body, {
+    signal: controller.signal,
+  });
+};
+
+export const resetPwd = (otp, newPassword, confirmPassword, controller) => {
+  const url = `${baseUrl}/reset-password/${otp}`;
+  const body = { newPassword, confirmPassword };
+  return axios.patch(url, body, {
+    signal: controller.signal,
+  });
+};

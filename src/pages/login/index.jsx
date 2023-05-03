@@ -7,8 +7,9 @@ import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
 import { login } from "utils/https/auth";
 import { authAction } from "redux/slices/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
+import Loader from "components/Loader";
 
 export default function Login() {
   const [iconEye, setIconEye] = useState(false);
@@ -17,9 +18,10 @@ export default function Login() {
   };
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.auth);
 
   const [formLogin, setFormLogin] = useState({
     email: "",
@@ -37,6 +39,28 @@ export default function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
+    if (formLogin.email == "") {
+      setIsLoading(false),
+        swal("Failed formLogin.", "Email is required", "error");
+      return;
+    }
+    if (!formLogin.password) {
+      setIsLoading(false);
+      swal("Failed", "Password is required", "error");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formLogin.email)) {
+      setIsLoading(false);
+      swal("Failed", "Invalid Email", "error");
+      return;
+    }
+    if (formLogin.password.length < 4) {
+      setIsLoading(false);
+
+      swal("Failed", "Password of at least 4 characters!", "error");
+      return;
+    }
     dispatch(
       authAction.doLogin({
         email: formLogin.email,
@@ -50,12 +74,14 @@ export default function Login() {
       })
       .catch((error) => {
         console.log(error);
-        return swal("Failed", error.response.data.msg, "error");
+        swal("Failed", error.response.data.msg, "error");
       });
   };
 
   return (
     <>
+      {(users.isLoading || isLoading) && <Loader />}
+
       <main className=" flex w-full h-full ">
         <section className=" hero-auth hidden lg:flex w-[53%] xl:w-[58%] flex-col ">
           <section className=" flex flex-col w-full  bg-tickitz-primary justify-center items-center  px-28 bg-opacity-80  h-[67rem] pb-60">
