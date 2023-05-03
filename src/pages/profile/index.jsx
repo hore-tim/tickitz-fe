@@ -4,7 +4,13 @@ import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import PrivateRoute from "utils/wrapper/privateRoute";
-import { getProfileData, changeProfileData, changePassword } from "utils/https/user";
+import { useDispatch } from "react-redux";
+import { profileAction } from "redux/slices/user";
+import {
+  getProfileData,
+  changeProfileData,
+  changePassword,
+} from "utils/https/user";
 
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
@@ -13,9 +19,9 @@ import Sidebar from "components/Sidebar";
 import Loader from "components/Loader";
 
 function Profile() {
-	const router = useRouter();
-
-	const token = useSelector((state) => state.auth.data.token);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.data.token);
 
 	const controller = useMemo(() => new AbortController(), []);
 
@@ -78,6 +84,7 @@ function Profile() {
 						setTimeout(() => {
 							router.reload();
 						}, 3000);
+              dispatch(profileAction.getProfile({ token, controller }));
 						console.log(data["data"]["msg"]);
 						return data["data"]["msg"];
 					},
@@ -130,6 +137,7 @@ function Profile() {
 	return (
 		<Layout title={"Your Profile"}>
 			<div className="">
+        {isLoading && <Loader />}
 				<Navbar />
 				<div className="board-tab lg:hidden gap-x-20 border-b border-b-[#DEDEDE] flex md:justify-between md:px-20 px-5 pt-10">
 					<div className="cursor-pointer flex flex-col gap-y-5">

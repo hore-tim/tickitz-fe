@@ -35,10 +35,7 @@ export default function CardBrand({ name, address, image, price, showtime }) {
           </div>
         </div>
         <hr className=" bg-tickitz-label mb-4" />
-        <div className=" flex px-8 flex-wrap gap-8 justify-start">
-          {/* {showtime.map((data, idx) => {
-            return <ShowTime key={idx} time={data} />;
-          })} */}
+        <div className=" flex px-8 flex-wrap gap-8 justify-start text-tickitz-label font-semibold text-xs cursor-pointer">
           {showtime}
         </div>
         <div className=" flex justify-between px-8 pt-6 pb-8">

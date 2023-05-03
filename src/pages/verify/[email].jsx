@@ -9,8 +9,10 @@ import { useRouter } from "next/router";
 import { verify } from "utils/https/auth";
 import swal from "sweetalert";
 import Title from "utils/wrapper/title";
+import publicRoute from "utils/wrapper/publicRoute";
+import Loader from "components/Loader";
 
-export default function Verify() {
+function Verify() {
   const controller = useMemo(() => new AbortController(), []);
   const router = useRouter();
   const email = router.query.email;
@@ -41,6 +43,7 @@ export default function Verify() {
 
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <Title title="Verification">
         <main className=" flex w-full h-full ">
           <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
@@ -159,3 +162,5 @@ export default function Verify() {
     </>
   );
 }
+
+export default publicRoute(Verify);

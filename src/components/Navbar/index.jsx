@@ -19,9 +19,7 @@ export default function Navbar() {
     setIsOpen(true);
   };
   const dataUser = useSelector((state) => state.auth);
-  const profileUser = dataUser.data;
-
-  console.log(dataUser);
+  const imageUser = useSelector((state) => state.profile.data.image);
 
   return (
     <>
@@ -111,7 +109,7 @@ export default function Navbar() {
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
               >
                 <Image
-                  src={!profileUser.image ? pp : profileUser.image}
+                  src={imageUser ? imageUser : pp}
                   width={56}
                   height={56}
                   alt="photoProfile"
@@ -139,7 +137,6 @@ export default function Navbar() {
                   >
                     Profile
                   </Link>
-                  {/* <form method="POST" action="#" role="none"> */}
                   <button
                     // type="submit"
                     class="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 hover:text-gray-900 transition-colors"
@@ -150,7 +147,6 @@ export default function Navbar() {
                   >
                     Logout
                   </button>
-                  {/* </form> */}
                 </div>
               </div>
             </>

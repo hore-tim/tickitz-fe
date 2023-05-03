@@ -9,10 +9,11 @@ import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/Tickitzyn2.svg";
 import swal from "sweetalert";
 import { forgot } from "utils/https/auth";
-import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
+import Loader from "components/Loader";
+import publicRoute from "utils/wrapper/publicRoute";
 
-export default function ResetPassword() {
+function ResetPassword() {
   const controller = useMemo(() => new AbortController(), []);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +45,7 @@ export default function ResetPassword() {
 
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <Title title="Forgot Password">
         {isLoading ? <Loader /> : <></>}
         <main className=" flex w-full h-full ">
@@ -178,3 +180,5 @@ export default function ResetPassword() {
     </>
   );
 }
+
+export default publicRoute(ResetPassword);
