@@ -1,14 +1,49 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/Tickitzyn2.svg";
+import swal from "sweetalert";
+import { forgot } from "utils/https/auth";
+import Loader from "components/Loader";
 
 export default function ResetPassword() {
+  const controller = useMemo(() => new AbortController(), []);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handleForgot = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setIsLoading(false);
+      swal("Failed", "Invalid Email", "error");
+      return;
+    }
+    forgot(email, controller)
+      .then((res) => {
+        console.log(res);
+        swal("Success", res.data.msg, "success");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        return swal("Failed", "Account not found", "error");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <main className=" flex w-full h-full ">
         <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
           <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
@@ -96,7 +131,11 @@ export default function ResetPassword() {
           <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
             <Image src={brandingFill} width={200} alt="brandd" />
           </div>
-          <form action="" className=" w-full  flex flex-col px-[10%]">
+          <form
+            action=""
+            className=" w-full  flex flex-col px-[10%]"
+            onSubmit={handleForgot}
+          >
             <h1 className=" text-[1.7rem] font-semibold lg:mt-[9.5rem] flex text-tickitz-basic">
               Fill your complete email
             </h1>
@@ -106,12 +145,15 @@ export default function ResetPassword() {
             <div className=" flex flex-col gap-7">
               <div className=" flex flex-col justify-center  w-full mt-5 lg:mt-12 ">
                 <label
-                  htmlFor=""
+                  htmlFor="email"
                   className=" mb-3 text-base text-tickitz-basic"
                 >
                   Email
                 </label>
                 <input
+                  name="email"
+                  onChange={onChangeEmail}
+                  value={email}
                   type="text"
                   className=" h-16 rounded-md border border-tickitz-label flex w-full p-5"
                   placeholder="Input Your Email"

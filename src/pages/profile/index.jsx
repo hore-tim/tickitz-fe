@@ -109,7 +109,7 @@ export default function Profile() {
 							router.reload();
 						}, 3000);
 						const errResponse = data["response"]["data"]["msg"];
-						return errResponse === "Password old Salah" && "Wrong old password";
+						return errResponse === "Password old Salah" ? "Wrong old password" : errResponse;
 					},
 				},
 			});
@@ -126,7 +126,9 @@ export default function Profile() {
 						<span className="border-b-2 border-b-tickitz-primary w-full"></span>
 					</div>
 					<div className="cursor-pointer flex flex-col gap-y-5">
-						<Link href={"/history"} className="text-lg text-[#AAAAAA]">Order History</Link>
+						<Link href={"/history"} className="text-lg text-[#AAAAAA]">
+							Order History
+						</Link>
 						<span className=""></span>
 					</div>
 				</div>
@@ -140,7 +142,9 @@ export default function Profile() {
 								<span className="border-b-2 border-b-tickitz-primary w-full"></span>
 							</div>
 							<div className="cursor-pointer flex flex-col gap-y-5">
-								<Link href={"/history"} className="text-lg text-[#AAAAAA]">Order History</Link>
+								<Link href={"/history"} className="text-lg text-[#AAAAAA]">
+									Order History
+								</Link>
 								<span className=""></span>
 							</div>
 						</div>

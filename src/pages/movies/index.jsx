@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
 import debounce from "lodash.debounce";
 
@@ -9,21 +10,39 @@ import Footer from "components/Footer";
 import Layout from "components/Layout";
 
 export default function MovieList() {
+	const router = useRouter();
+
 	const controller = useMemo(() => new AbortController(), []);
 
-	const [movieData, setMovieData] = useState([])
-	const [sort, setSort] = useState("")
-	const [search, setSearch] = useState("")
+	const [movieData, setMovieData] = useState([]);
+	const [sort, setSort] = useState("");
+	const [search, setSearch] = useState("");
 	const [page, setPage] = useState(1);
-	const [pagination, setPagination] = useState([])
+	const [pagination, setPagination] = useState([]);
+
+	const fetching = async () => {
+		router.replace({
+			pathname: "/movies",
+			query: {
+				sort,
+				page,
+				search,
+			},
+		});
+
+		try {
+			const result = await getAllMovies(10, sort, page, search, controller);
+			setMovieData(result["data"]["data"]);
+			setPagination(result["data"]["meta"]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		getAllMovies(10, sort, page, search, controller).
-		then((res) => {
-			setMovieData(res["data"]["data"])
-			setPagination(res["data"]["meta"])
-		}).catch((err) => console.log(err))
-	}, [search, sort, page, controller])
+		fetching();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [search, sort, page, controller]);
 
 	const handleSort = (e) => {
 		let value = e.target.value;
@@ -148,10 +167,18 @@ export default function MovieList() {
 					<section className="py-10">
 						<div className="flex flex-col items-center gap-y-3">
 							<div className="btn-group">
-								<button disabled={pagination.page === 1} onClick={() => setPage(page - 1)} className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
+								<button
+									disabled={pagination.page === 1}
+									onClick={() => setPage(page - 1)}
+									className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary"
+								>
 									Prev
 								</button>
-								<button disabled={pagination.page === pagination.totalPage || pagination.totalPage === 0} onClick={() => setPage(page + 1)} className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
+								<button
+									disabled={pagination.page === pagination.totalPage || pagination.totalPage === 0}
+									onClick={() => setPage(page + 1)}
+									className="btn normal-case border-[0.5px] bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary"
+								>
 									Next
 								</button>
 							</div>
