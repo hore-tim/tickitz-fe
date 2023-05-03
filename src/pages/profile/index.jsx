@@ -14,6 +14,7 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
 import Sidebar from "components/Sidebar";
+import Loader from "components/Loader";
 
 function Profile() {
   const router = useRouter();
@@ -37,13 +38,16 @@ function Profile() {
     newPassword: "",
     confirmPassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const phoneNumber = profileData["phone"];
 
   useEffect(() => {
+    setIsLoading(true);
     getProfileData(token, controller)
       .then((res) => {
         setProfileData(res["data"]["data"][0]);
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, [token, controller]);
