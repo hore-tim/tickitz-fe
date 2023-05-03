@@ -9,6 +9,7 @@ export default function Cinemas() {
         <Layout title={"Cinemas List"}>
         <div>
             <Navbar/>
+            
             <Footer/>
         </div>
         </Layout>
