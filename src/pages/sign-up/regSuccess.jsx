@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import branding from "assets/icons/tickitzyn.svg";
-import brandingFill from "assets/icons/tickitzyn2.svg";
+import brandingFill from "assets/icons/Tickitzyn2.svg";
 import ticket from "assets/icons/tick.png";
 
 export default function RegSucces() {

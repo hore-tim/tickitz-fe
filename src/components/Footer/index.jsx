@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import ebv from "assets/icons/ebv.id.svg";
 import cineOne from "assets/icons/CineOne21.svg";
@@ -38,9 +39,9 @@ export default function Footer() {
           <p className="font-bold">Explore</p>
           <div className="lg:flex grid lg:flex-col grid-cols-3 gap-y-5">
             <p className="list-none text-sm text-tickitz-basic">Cinemas</p>
-            <p className="list-none text-sm text-tickitz-basic lg:text-start text-center">
-              Movies List
-            </p>
+            <Link href={"/movies"} className="text-sm text-tickitz-basic lg:text-start text-center">
+							Movies List
+						</Link>
             <p className="list-none text-sm text-tickitz-basic lg:text-start text-end">
               My Ticket
             </p>
