@@ -8,6 +8,7 @@ import { getAllMovies } from "utils/https/movies";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
+import Loader from "components/Loader";
 
 export default function MovieList() {
 	const router = useRouter();
@@ -19,6 +20,7 @@ export default function MovieList() {
 	const [search, setSearch] = useState("");
 	const [page, setPage] = useState(1);
 	const [pagination, setPagination] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const fetching = async () => {
 		router.replace({
@@ -30,12 +32,16 @@ export default function MovieList() {
 			},
 		});
 
+		setIsLoading(true);
+
 		try {
 			const result = await getAllMovies(10, sort, page, search, controller);
 			setMovieData(result["data"]["data"]);
 			setPagination(result["data"]["meta"]);
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
+			setIsLoading(false);
 		}
 	};
 
@@ -73,6 +79,7 @@ export default function MovieList() {
 	return (
 		<Layout title={"Movies List"}>
 			<div className="">
+				{isLoading && <Loader />}
 				<Navbar />
 				<main className="flex flex-col">
 					<section className="flex lg:flex-row flex-col gap-y-5 justify-between md:px-20 px-5 py-10 bg-[#F5F6F8]">
@@ -97,7 +104,7 @@ export default function MovieList() {
 									className="border border-gray-300 rounded-md text-gray-600 h-10 pl-5 w-full bg-white hover:border-gray-400 focus:outline-none appearance-none"
 									id="filter"
 								>
-									<option value="">Filter by</option>
+									<option value="">Sort by</option>
 									<option value="name_asc">Name Ascending</option>
 									<option value="name_desc">Name Descending</option>
 									<option value="release_asc">Release Asc</option>
@@ -130,9 +137,10 @@ export default function MovieList() {
 									return (
 										<div
 											key={movieData && movie.id}
-											className="flex flex-col items-center gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5"
+											onClick={() => router.push(`/movies/${movie.id}`)}
+											className="flex flex-col items-center gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5 justify-between"
 										>
-											<figure className="relative overflow-hidden h-[224px] w-[159px]">
+											<figure className="relative overflow-hidden md:h-[14rem] h-[11rem] md:w-[9.938rem] w-[7rem]">
 												<Image
 													alt="movie-poster"
 													src={movieData && movie.movies_image}
@@ -183,7 +191,9 @@ export default function MovieList() {
 								</button>
 							</div>
 							<div>
-								<p className="text-tickitz-label">Page 1 of 1</p>
+								<p className="text-tickitz-label">
+									Page {pagination.totalPage === 0 ? 0 : pagination.page} of {pagination.totalPage}
+								</p>
 							</div>
 						</div>
 					</section>
