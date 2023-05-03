@@ -262,7 +262,7 @@ export default function Details() {
               );
             })}
           </section>
-					{cardData.length > 4 && (<div className=" flex gap-12 py-12 w-full items-center">
+					{cardData.length > 10 && (<div className=" flex gap-12 py-12 w-full items-center">
             <div className=" w-full h-[1px] bg-tickitz-label"></div>
             <div className=" w-max">
               <p className=" text-tickitz-primary font-bold w-max">View More</p>
