@@ -161,4 +161,4 @@ function Verify() {
   );
 }
 
-export default privateRoute(verify);
+export default privateRoute(Verify);
