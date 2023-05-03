@@ -9,8 +9,8 @@ import branding from "assets/icons/tickitzyn.svg";
 import brandingFill from "assets/icons/Tickitzyn2.svg";
 import swal from "sweetalert";
 import { forgot } from "utils/https/auth";
-import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
+import Loader from "components/Loader";
 import publicRoute from "utils/wrapper/publicRoute";
 
 function ResetPassword() {
@@ -45,6 +45,7 @@ function ResetPassword() {
 
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <Title title="Forgot Password">
         {isLoading ? <Loader /> : <></>}
         <main className=" flex w-full h-full ">

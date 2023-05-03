@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dialog } from "@headlessui/react";
 import { toast } from "react-toastify";
 
@@ -13,10 +13,11 @@ import {
 
 import defaulProfile from "assets/images/profile-placeholder.webp";
 import starIcon from "assets/icons/star-icon.png";
+import { profileAction } from "redux/slices/user";
 
 export default function Sidebar(props) {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.data.token);
 
   const controller = useMemo(() => new AbortController(), []);
@@ -47,6 +48,12 @@ export default function Sidebar(props) {
     setImagePreview(URL.createObjectURL(file));
   };
 
+  const profileHandler = () => {
+    if (imagePreview) return imagePreview;
+    if (profileData.image) return profileData.image;
+    return defaulProfile;
+  };
+
   const updateImageHandler = (e) => {
     e.preventDefault();
 
@@ -57,11 +64,11 @@ export default function Sidebar(props) {
       pending: "Please wait...",
       success: {
         render() {
+          dispatch(profileAction.getProfile({ token, controller }));
           setTimeout(() => {
             setIsModalOpen(false);
             router.reload();
           }, 3000);
-
           return "Image successfully updated";
         },
       },
@@ -174,11 +181,12 @@ export default function Sidebar(props) {
                   <Image
                     alt="your profile photo"
                     src={
-                      profileData.image
-                        ? profileData.image
-                        : imagePreview
-                        ? imagePreview
-                        : defaulProfile
+                      // profileData.image
+                      //   ? profileData.image
+                      //   : imagePreview
+                      //   ? imagePreview
+                      //   : defaulProfile
+                      profileHandler()
                     }
                     fill={true}
                     priority={true}
