@@ -51,3 +51,13 @@ export const resetPwd = (otp, newPassword, confirmPassword, controller) => {
     signal: controller.signal,
   });
 };
+
+export const logout = (token, controller) => {
+  const url = `${baseUrl}/logout`;
+  const body = null;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+    signal: controller.signal,
+  };
+  return axios.patch(url, body, config);
+};

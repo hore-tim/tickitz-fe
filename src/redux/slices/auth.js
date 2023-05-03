@@ -26,9 +26,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // logoutRedux: () => {
-    //   return initialState;
-    // },
+    logoutRedux: () => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
