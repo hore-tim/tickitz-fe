@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 import Navbar from "components/Navbar";
@@ -9,6 +10,8 @@ import Layout from "components/Layout";
 import posterHero from "assets/images/hero-poster.webp";
 
 export default function Home({ movies }) {
+	const router = useRouter();
+
 	const months = [
 		"January",
 		"February",
@@ -41,7 +44,7 @@ export default function Home({ movies }) {
 								</p>
 							</div>
 							<div className="right-side">
-								<Image alt="movie posters" src={posterHero} />
+								<Image alt="movie posters" src={posterHero} priority={true} />
 							</div>
 						</div>
 					</section>
@@ -64,13 +67,13 @@ export default function Home({ movies }) {
 								<div className="carousel pb-38 gap-x-5">
 									{movies &&
 										movies.length > 0 &&
-										movies.map((movie, index) => {
+										movies.map((movie) => {
 											return (
 												<div
 													key={movie.id}
 													className="group carousel-item w-[202.2px] cursor-pointer"
 												>
-													<div className="flex flex-col gap-y-7 bg-white/20 group-hover:bg-white group-hover:absolute border-2 border-white rounded-md p-5">
+													<div className="flex flex-col gap-y-7 bg-white/20 group-hover:bg-white group-hover:absolute group-hover:w-[202.2px] group-hover:shadow-[0px_8px_30px_rgba(61,64,91,0.3)] border-2 border-white rounded-md p-5">
 														<figure className="relative overflow-hidden w-[159px] h-[224px]">
 															<Image
 																alt="movie-poster"
@@ -88,10 +91,16 @@ export default function Home({ movies }) {
 															<p className="text-xs text-[#A0A3BD] text-center">{movie.category}</p>
 														</div>
 														<div className="group-hover:flex flex-col gap-y-5 hidden">
-															<button className="btn normal-case text-tickitz-primary border-tickitz-primary bg-white hover:text-white hover:bg-tickitz-primary">
+															<button
+																onClick={() => router.push(`movies/${movie.id}`)}
+																className="btn normal-case text-tickitz-primary border-tickitz-primary bg-white hover:text-white hover:bg-tickitz-primary"
+															>
 																Details
 															</button>
-															<button className="btn normal-case text-white border-tickitz-primary bg-tickitz-primary hover:text-tickitz-primary">
+															<button
+																onClick={() => router.push(`movies/${movie.id}`)}
+																className="btn normal-case text-white border-tickitz-primary bg-tickitz-primary hover:text-tickitz-primary"
+															>
 																Book Now
 															</button>
 														</div>
@@ -134,10 +143,10 @@ export default function Home({ movies }) {
 								<div className="carousel gap-x-5">
 									{movies &&
 										movies.length > 0 &&
-										movies.map((movie, index) => {
+										movies.map((movie) => {
 											return (
-												<div key={movie.id} className="carousel-item cursor-pointer">
-													<div className="flex flex-col gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5">
+												<div key={movie.id} className="carousel-item cursor-pointer w-[210.63px]">
+													<div className="flex flex-col justify-between gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5">
 														<figure className="relative overflow-hidden w-[159px] h-[224px]">
 															<Image
 																alt="movie-poster"
@@ -155,7 +164,10 @@ export default function Home({ movies }) {
 															<p className="text-xs text-[#A0A3BD] text-center">{movie.category}</p>
 														</div>
 														<div className="flex flex-col">
-															<button className="btn normal-case text-tickitz-primary border-tickitz-primary bg-white hover:text-white hover:bg-tickitz-primary">
+															<button
+																onClick={() => router.push(`movies/${movie.id}`)}
+																className="btn normal-case text-tickitz-primary border-tickitz-primary bg-white hover:text-white hover:bg-tickitz-primary"
+															>
 																Details
 															</button>
 														</div>

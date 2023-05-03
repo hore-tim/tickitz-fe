@@ -7,3 +7,9 @@ export const getAllMovies = (limit, sort, page, search, controller) => {
 	const config = { signal: controller.signal };
 	return axios.get(url, config);
 };
+
+export const getSingleMovie = (id, controller) => {
+	const url = `${baseUrl}/movies/${id}`
+	const config = { signal: controller.signal };
+	return axios.get(url, config);
+}
