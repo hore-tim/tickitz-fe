@@ -11,8 +11,9 @@ import { useRouter } from "next/router";
 import swal from "sweetalert";
 import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
+import publicRoute from "utils/wrapper/publicRoute";
 
-export default function Signup() {
+function Signup() {
   const controller = useMemo(() => new AbortController(), []);
   const router = useRouter();
   const [iconEye, setIconEye] = useState(false);
@@ -278,3 +279,5 @@ export default function Signup() {
     </>
   );
 }
+
+export default publicRoute(Signup);

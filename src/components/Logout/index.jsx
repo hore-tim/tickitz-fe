@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { logout } from "utils/https/auth";
 import { authAction } from "redux/slices/auth";
+import { profileAction } from "redux/slices/user";
 import Loader from "components/Loader";
 
 function Logout({ isOpen, setIsOpen }) {
@@ -20,10 +21,11 @@ function Logout({ isOpen, setIsOpen }) {
       // console.log(result);
       if (result.status && result.status === 200) {
         dispatch(authAction.logoutRedux());
+        dispatch(profileAction.filter());
 
         setIsOpen(false);
         setLoading(false);
-        router.push("/");
+        router.push("/login");
       }
 
       router.push("/login");
@@ -46,7 +48,7 @@ function Logout({ isOpen, setIsOpen }) {
               <div className="  flex justify-end ">
                 <button
                   type="button"
-                  className="  text-[32px] font-bold text-[#F70000] cursor-pointer"
+                  className="  text-[32px] font-bold text-tickitz-error cursor-pointer"
                   onClick={() => {
                     setIsOpen(false);
                   }}
@@ -76,7 +78,7 @@ function Logout({ isOpen, setIsOpen }) {
                     onClick={() => {
                       setIsOpen(false);
                     }}
-                    className="text-white w-[10.625rem] mt-28 h-14 bg-tickitz-error focus:ring-4 focus:outline-none  font-bold rounded-lg text-lg px-5 py-2.5 text-center "
+                    className="text-tickitz-basic border-r-tickitz-primary font-bold hover:bg-white hover:text-tickitz-basic border-2 w-[10.625rem] mt-28 h-14 btn-outline focus:ring-4 focus:outline-none  rounded-lg text-lg px-5 py-2.5 text-center "
                   >
                     Cancel
                   </button>

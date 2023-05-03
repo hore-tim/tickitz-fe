@@ -9,8 +9,9 @@ import { useRouter } from "next/router";
 import { verify } from "utils/https/auth";
 import swal from "sweetalert";
 import Title from "utils/wrapper/title";
+import privateRoute from "utils/wrapper/privateRoute";
 
-export default function Verify() {
+function Verify() {
   const controller = useMemo(() => new AbortController(), []);
   const router = useRouter();
   const email = router.query.email;
@@ -159,3 +160,5 @@ export default function Verify() {
     </>
   );
 }
+
+export default privateRoute(verify);

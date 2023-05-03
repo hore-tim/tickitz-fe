@@ -11,8 +11,9 @@ import swal from "sweetalert";
 import { forgot } from "utils/https/auth";
 import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
+import publicRoute from "utils/wrapper/publicRoute";
 
-export default function ResetPassword() {
+function ResetPassword() {
   const controller = useMemo(() => new AbortController(), []);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -178,3 +179,5 @@ export default function ResetPassword() {
     </>
   );
 }
+
+export default publicRoute(ResetPassword);
