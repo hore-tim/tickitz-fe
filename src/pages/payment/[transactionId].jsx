@@ -43,8 +43,8 @@ function Payment() {
     }
 
     return () => {getData = false}
-    
-  }, [transactionId])
+
+  }, [transactionId, token])
 
 
   const payOrder = async () => {
@@ -82,9 +82,9 @@ function Payment() {
                 Payment Info
               </h2>
               {transactionData.map((data, i) => {
-                
+
                 return (
-                  <div className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md">
+                  <div key={i} className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md">
                     <div className=" flex justify-between py-6 border-b border-tickitz-greyBorder">
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Date & time
