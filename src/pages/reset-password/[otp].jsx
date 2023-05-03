@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import branding from "assets/icons/tickitzyn.svg";
-import brandingFill from "assets/icons/tickitzyn2.svg";
+import brandingFill from "assets/icons/Tickitzyn2.svg";
 import { resetPwd } from "utils/https/auth";
 import swal from "sweetalert";
 import Loader from "components/Loader";
