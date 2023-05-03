@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
 import { DateTime } from "luxon";
 
-import { getSingleMovie } from "utils/https/movies";
+import { getSingleMovie, getAllShow } from "utils/https/movies";
 
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
@@ -25,7 +25,8 @@ export default function Details() {
 	const controller = useMemo(() => new AbortController(), []);
 
 	const [movieData, setMovieData] = useState([]);
-	const [location, setLocation] = useState("");
+	const [cardData, setCardData] = useState([]);
+	const [location, setLocation] = useState("Jakarta");
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -37,8 +38,14 @@ export default function Details() {
 					setIsLoading(false)
 				})
 				.catch((err) => console.log(err));
+
+			getAllShow(location, id, controller)
+			.then((res) => {
+				setCardData(res["data"]["data"])
+				setIsLoading(false)
+			}).catch((err) => console.log(err))
 		}
-	}, [id, controller]);
+	}, [id, location, controller]);
 
 	const releaseDate = DateTime.fromISO(movieData["release_date"]).toFormat("MMMM dd, yyyy");
 
@@ -54,64 +61,64 @@ export default function Details() {
 		minutes ? minutes + " minute" + (minutes > 1 ? "s" : "") : ""
 	}`.trim();
 
-	const cardData = [
-		{
-			name: "Ebv",
-			address: "Whatever street No.12, South Purwokerto",
-			image: ebv,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Hiflix",
-			address: "Whatever street No.12, South Purwokerto",
-			image: hiflix,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Ebv",
-			address: "Whatever street No.12, South Purwokerto",
-			image: ebv,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Hiflix",
-			address: "Whatever street No.12, South Purwokerto",
-			image: hiflix,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Ebv",
-			address: "Whatever street No.12, South Purwokerto",
-			image: ebv,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Hiflix",
-			address: "Whatever street No.12, South Purwokerto",
-			image: hiflix,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "Ebv",
-			address: "Whatever street No.12, South Purwokerto",
-			image: ebv,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-		{
-			name: "CineOne21",
-			address: "Whatever street No.12, South Purwokerto",
-			image: cineone,
-			price: 30000,
-			showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-		},
-	];
+	// const cardData = [
+	// 	{
+	// 		name: "Ebv",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: ebv,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Hiflix",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: hiflix,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Ebv",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: ebv,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Hiflix",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: hiflix,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Ebv",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: ebv,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Hiflix",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: hiflix,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "Ebv",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: ebv,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// 	{
+	// 		name: "CineOne21",
+	// 		address: "Whatever street No.12, South Purwokerto",
+	// 		image: cineone,
+	// 		price: 30000,
+	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+	// 	},
+	// ];
 
 	return (
 		<Layout title={movieData["title"] ? movieData["title"] : "Movie detail"}>
@@ -213,9 +220,9 @@ export default function Details() {
 							return (
 								<CardBrand
 									key={idx}
-									name={data.name}
+									name={data.cinema_title}
 									address={data.address}
-									image={data.image}
+									image={data.cinema_brand_image}
 									price={data.price}
 									showtime={data.showtime}
 								/>

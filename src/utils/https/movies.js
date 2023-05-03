@@ -13,3 +13,9 @@ export const getSingleMovie = (id, controller) => {
 	const config = { signal: controller.signal };
 	return axios.get(url, config);
 }
+
+export const getAllShow = (city_name, movie_id, controller) => {
+	const url = `${baseUrl}/show?city_name=${city_name}&movie_id=${movie_id}`;
+	const config = { signal: controller.signal };
+	return axios.get(url, config);
+}

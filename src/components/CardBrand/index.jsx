@@ -20,6 +20,7 @@ export default function CardBrand({ name, address, image, price, showtime }) {
                 src={image}
                 alt="ebv.id"
                 width={106}
+                height={106}
                 className=" object-cover "
               />
             </div>
@@ -35,9 +36,10 @@ export default function CardBrand({ name, address, image, price, showtime }) {
         </div>
         <hr className=" bg-tickitz-label mb-4" />
         <div className=" flex px-8 flex-wrap gap-8 justify-start">
-          {showtime.map((data, idx) => {
+          {/* {showtime.map((data, idx) => {
             return <ShowTime key={idx} time={data} />;
-          })}
+          })} */}
+          {showtime}
         </div>
         <div className=" flex justify-between px-8 pt-6 pb-8">
           <div className=" text-base text-[#6B6B6B]">
