@@ -92,7 +92,7 @@ function Profile() {
               setTimeout(() => {
                 router.reload();
               }, 3000);
-
+              dispatch(profileAction.getProfile({ token, controller }));
               console.log(data["data"]["msg"]);
               return data["data"]["msg"];
             },
@@ -144,6 +144,7 @@ function Profile() {
   return (
     <Layout title={"Your Profile"}>
       <div className="">
+        {isLoading && <Loader />}
         <Navbar />
         <div className="board-tab lg:hidden gap-x-20 border-b border-b-[#DEDEDE] flex md:justify-between md:px-20 px-5 pt-10">
           <div className="cursor-pointer flex flex-col gap-y-5">
@@ -222,30 +223,26 @@ function Profile() {
                       <select
                         name="prefix"
                         onChange={onDetailsFormChange}
-                        className="appearance-none focus:outline-none dropd text-[#4E4B66] bg-[#FCFDFE] py-4 lg:px-4 px-2 border border-r-transparent rounded-l-md w-full"
-                      >
+                        className="appearance-none focus:outline-none dropd text-[#4E4B66] bg-[#FCFDFE] py-4 lg:px-4 px-2 border border-r-transparent rounded-l-md w-full">
                         <option
                           selected={
                             profileData.phone && phoneNumber.startsWith("+62")
                           }
-                          value="+62"
-                        >
+                          value="+62">
                           +62
                         </option>
                         <option
                           selected={
                             profileData.phone && phoneNumber.startsWith("+65")
                           }
-                          value="+65"
-                        >
+                          value="+65">
                           +65
                         </option>
                         <option
                           selected={
                             profileData.phone && phoneNumber.startsWith("+1")
                           }
-                          value="+1"
-                        >
+                          value="+1">
                           +1
                         </option>
                       </select>
@@ -284,13 +281,11 @@ function Profile() {
                     {visible1 ? (
                       <i
                         onClick={() => setVisible1(!visible1)}
-                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     ) : (
                       <i
                         onClick={() => setVisible1(!visible1)}
-                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     )}
                   </div>
                 </div>
@@ -307,13 +302,11 @@ function Profile() {
                     {visible2 ? (
                       <i
                         onClick={() => setVisible2(!visible2)}
-                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     ) : (
                       <i
                         onClick={() => setVisible2(!visible2)}
-                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     )}
                   </div>
                 </div>
@@ -330,13 +323,11 @@ function Profile() {
                     {visible3 ? (
                       <i
                         onClick={() => setVisible3(!visible3)}
-                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye-slash text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     ) : (
                       <i
                         onClick={() => setVisible3(!visible3)}
-                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"
-                      ></i>
+                        className="bi bi-eye text-xl text-[#A0A3BD] absolute top-[15px] right-[10px] cursor-pointer"></i>
                     )}
                   </div>
                 </div>
@@ -345,8 +336,7 @@ function Profile() {
             <div className="lg:w-1/2 md:px-8 px-4">
               <button
                 onClick={(e) => updateHandler(e)}
-                className="btn normal-case border-transparent bg-tickitz-primary text-white hover:text-tickitz-primary w-full"
-              >
+                className="btn normal-case border-transparent bg-tickitz-primary text-white hover:text-tickitz-primary w-full">
                 Update Changes
               </button>
             </div>

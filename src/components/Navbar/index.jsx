@@ -25,8 +25,6 @@ export default function Navbar() {
   const profileUser = userData.data;
   // console.log(profileUser.image);
 
-  console.log(dataUser);
-
   return (
     <>
       {isOpen && <Logout isOpen={isOpen} setIsOpen={setIsOpen} />}
@@ -38,8 +36,7 @@ export default function Navbar() {
               height="51"
               viewBox="0 0 130 51"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M14.3997 40.5807H8.79648V17.546H0.352539V11.7823H22.824V17.546H14.3997V40.5807ZM31.5423 13.2282C31.5423 13.737 31.4444 14.2123 31.2483 14.6541C31.0656 15.0959 30.811 15.4842 30.4844 15.8189C30.1578 16.1402 29.7726 16.4013 29.3285 16.6021C28.8973 16.7895 28.4338 16.8833 27.9373 16.8833C27.4411 16.8833 26.9709 16.7895 26.5268 16.6021C26.0958 16.4013 25.717 16.1402 25.3905 15.8189C25.0771 15.4842 24.8224 15.0959 24.6264 14.6541C24.4436 14.2123 24.3522 13.737 24.3522 13.2282C24.3522 12.7329 24.4436 12.2643 24.6264 11.8225C24.8224 11.3673 25.0771 10.979 25.3905 10.6577C25.717 10.323 26.0958 10.0619 26.5268 9.87447C26.9709 9.67365 27.4411 9.57324 27.9373 9.57324C28.4338 9.57324 28.8973 9.67365 29.3285 9.87447C29.7726 10.0619 30.1578 10.323 30.4844 10.6577C30.811 10.979 31.0656 11.3673 31.2483 11.8225C31.4444 12.2643 31.5423 12.7329 31.5423 13.2282ZM30.6216 40.5807H25.2338V19.0723H30.6216V40.5807ZM53.0538 23.3498L49.1353 27.3864C48.9395 26.8241 48.6718 26.3221 48.3321 25.8802C47.9926 25.4251 47.6074 25.0435 47.1763 24.7355C46.7584 24.4276 46.3013 24.1933 45.8048 24.0326C45.3086 23.872 44.7991 23.7917 44.2767 23.7917C43.5453 23.7917 42.8531 23.9456 42.2001 24.2536C41.56 24.5615 40.9983 24.9966 40.5152 25.5589C40.045 26.1078 39.6726 26.7639 39.3985 27.5271C39.1243 28.2902 38.9871 29.1336 38.9871 30.0574C38.9871 30.807 39.1243 31.5101 39.3985 32.1662C39.6726 32.8221 40.045 33.3979 40.5152 33.8931C40.9983 34.3885 41.56 34.7768 42.2001 35.0579C42.8531 35.3392 43.5453 35.4796 44.2767 35.4796C44.7991 35.4796 45.302 35.4061 45.7853 35.2588C46.2687 35.1116 46.7191 34.904 47.1372 34.6361C47.5681 34.3551 47.9469 34.0203 48.2735 33.632C48.6129 33.2304 48.8874 32.7886 49.0963 32.3066L53.0145 36.3433C52.5183 37.0663 51.9435 37.7156 51.2905 38.2911C50.6504 38.8669 49.9517 39.3556 49.1942 39.7573C48.4498 40.1589 47.6596 40.4603 46.8237 40.661C46.0009 40.8751 45.1519 40.9823 44.2767 40.9823C42.8009 40.9823 41.41 40.701 40.1038 40.1389C38.8108 39.5631 37.6745 38.78 36.6949 37.7891C35.7282 36.7984 34.9643 35.6402 34.4025 34.3148C33.8411 32.9893 33.5602 31.5704 33.5602 30.0574C33.5602 28.4106 33.8411 26.871 34.4025 25.4384C34.9643 24.0059 35.7282 22.7608 36.6949 21.7031C37.6745 20.632 38.8108 19.7885 40.1038 19.1727C41.41 18.5568 42.8009 18.2489 44.2767 18.2489C45.1519 18.2489 46.0073 18.3627 46.8432 18.5903C47.6922 18.8179 48.4955 19.1526 49.253 19.5944C50.0237 20.0228 50.7288 20.5517 51.3689 21.1809C52.0218 21.8102 52.5836 22.5332 53.0538 23.3498ZM61.0667 40.5807H55.679V10.5171H61.0667V29.475L69.0403 19.1124H75.1923L68.2373 28.0692L75.1923 40.5807H69.0403L64.7891 32.7686L61.0667 37.8294V40.5807ZM83.6166 13.2282C83.6166 13.737 83.5185 14.2123 83.3227 14.6541C83.1397 15.0959 82.8851 15.4842 82.5587 15.8189C82.2321 16.1402 81.8467 16.4013 81.4026 16.6021C80.9717 16.7895 80.5081 16.8833 80.0117 16.8833C79.5155 16.8833 79.0452 16.7895 78.6012 16.6021C78.17 16.4013 77.7913 16.1402 77.4649 15.8189C77.1514 15.4842 76.8968 15.0959 76.7007 14.6541C76.518 14.2123 76.4265 13.737 76.4265 13.2282C76.4265 12.7329 76.518 12.2643 76.7007 11.8225C76.8968 11.3673 77.1514 10.979 77.4649 10.6577C77.7913 10.323 78.17 10.0619 78.6012 9.87447C79.0452 9.67365 79.5155 9.57324 80.0117 9.57324C80.5081 9.57324 80.9717 9.67365 81.4026 9.87447C81.8467 10.0619 82.2321 10.323 82.5587 10.6577C82.8851 10.979 83.1397 11.3673 83.3227 11.8225C83.5185 12.2643 83.6166 12.7329 83.6166 13.2282ZM82.6957 40.5807H77.3082V19.0723H82.6957V40.5807ZM97.3111 40.5807C96.018 40.5807 94.8033 40.3331 93.667 39.8376C92.5307 39.329 91.5317 38.6394 90.6695 37.7691C89.8205 36.8854 89.1478 35.8612 88.6516 34.6965C88.1683 33.5317 87.9267 32.2866 87.9267 30.9611V24.5749H85.3211V19.1124H87.9267V10.5171H93.2556V19.1124H101.366V24.5749H93.2556V30.9611C93.2556 31.5369 93.36 32.079 93.5691 32.5879C93.778 33.0831 94.0653 33.5183 94.431 33.8931C94.7969 34.2682 95.2278 34.5692 95.724 34.7968C96.2205 35.0112 96.7493 35.1182 97.3111 35.1182H101.366V40.5807H97.3111ZM120.762 40.5807H103.267L112.103 24.5749H103.267V19.1124H120.762L111.926 35.1182H120.762V40.5807Z"
                 fill="#3D405B"
@@ -64,14 +61,12 @@ export default function Navbar() {
           <div className="dropdown lg:inline-block hidden dropdown-hover dropdown-end">
             <label
               tabIndex={0}
-              className="flex items-center gap-x-5 cursor-pointer"
-            >
+              className="flex items-center gap-x-5 cursor-pointer">
               <p className="font-semibold text-[#414141]">Location</p>
               <svg
                 className="w-2 h-2"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 412 232"
-              >
+                viewBox="0 0 412 232">
                 <path
                   d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
                   fill="#414141"
@@ -81,8 +76,7 @@ export default function Navbar() {
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content menu p-8 shadow bg-white rounded-box w-52 gap-y-5 cursor-pointer"
-            >
+              className="dropdown-content menu p-8 shadow bg-white rounded-box w-52 gap-y-5 cursor-pointer">
               <li>Purwokerto</li>
               <li>Padang</li>
               <li>Malang</li>
@@ -92,11 +86,9 @@ export default function Navbar() {
           <div className="lg:flex hidden cursor-pointer">
             <i
               className="bi bi-search text-[#414141] text-xl before:h-6 before:w-6"
-              onClick={() => setIsSearch(!isSearch)}
-            ></i>
+              onClick={() => setIsSearch(!isSearch)}></i>
             <div
-              className={`nav-search ${isSearch ? "top-16" : "top-[-7rem]"}`}
-            >
+              className={`nav-search ${isSearch ? "top-16" : "top-[-7rem]"}`}>
               <button className="btn bg-tickitz-primary border-tickitz-primary">
                 <i className="bi bi-search text-white"></i>
               </button>
@@ -112,8 +104,7 @@ export default function Navbar() {
             <>
               <div
                 onClick={handleMenuToggle}
-                className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
-              >
+                className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer">
                 <Image
                   src={!profileUser.image ? pp : profileUser.image}
                   width={56}
@@ -131,16 +122,14 @@ export default function Navbar() {
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
-                tabindex="-1"
-              >
+                tabindex="-1">
                 <div class="py-1" role="none">
                   <Link
                     href="/profile"
                     class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     role="menuitem"
                     tabindex="-1"
-                    id="menu-item-0"
-                  >
+                    id="menu-item-0">
                     Profile
                   </Link>
                   <button
@@ -149,8 +138,7 @@ export default function Navbar() {
                     role="menuitem"
                     tabindex="-1"
                     id="menu-item-3"
-                    onClick={handleLogout}
-                  >
+                    onClick={handleLogout}>
                     Logout
                   </button>
                 </div>
@@ -160,24 +148,21 @@ export default function Navbar() {
             <div className="w-1/5 lg:block hidden">
               <Link
                 href={"/sign-up"}
-                className="btn normal-case w-full font-bold border-transparent bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary"
-              >
+                className="btn normal-case w-full font-bold border-transparent bg-tickitz-primary text-white hover:bg-white hover:text-tickitz-primary">
                 Sign Up
               </Link>
             </div>
           )}
           <div
             className="lg:hidden block"
-            onClick={() => setIsMobile(!isMobile)}
-          >
+            onClick={() => setIsMobile(!isMobile)}>
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12"
-            >
+              className="h-12 w-12">
               <path
                 d="M4 6C4 5.73478 4.10536 5.48043 4.29289 5.29289C4.48043 5.10536 4.73478 5 5 5H19C19.2652 5 19.5196 5.10536 19.7071 5.29289C19.8946 5.48043 20 5.73478 20 6C20 6.26522 19.8946 6.51957 19.7071 6.70711C19.5196 6.89464 19.2652 7 19 7H5C4.73478 7 4.48043 6.89464 4.29289 6.70711C4.10536 6.51957 4 6.26522 4 6Z"
                 fill="black"
@@ -202,8 +187,7 @@ export default function Navbar() {
           <div
             className={`nav-mobile lg:hidden ${
               isMobile ? "-right-0" : "right-full"
-            }`}
-          >
+            }`}>
             <div className="relative px-10">
               <i className="bi bi-search text-xl text-tickitz-label absolute top-[11px] left-14"></i>
               <input
@@ -216,14 +200,12 @@ export default function Navbar() {
               <div className="dropdown dropdown-hover dropdown-start">
                 <label
                   tabIndex={0}
-                  className="flex py-10 border items-center justify-center gap-x-5 cursor-pointer"
-                >
+                  className="flex py-10 border items-center justify-center gap-x-5 cursor-pointer">
                   <p className="font-semibold text-[#414141]">Location</p>
                   <svg
                     className="w-2 h-2"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 412 232"
-                  >
+                    viewBox="0 0 412 232">
                     <path
                       d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
                       fill="#414141"
@@ -233,8 +215,7 @@ export default function Navbar() {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu p-8 shadow bg-white rounded-box w-full gap-y-5 cursor-pointer"
-                >
+                  className="dropdown-content menu p-8 shadow bg-white rounded-box w-full gap-y-5 cursor-pointer">
                   <li>Purwokerto</li>
                   <li>Padang</li>
                   <li>Malang</li>
