@@ -5,10 +5,14 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
 import Sidebar from "components/Sidebar";
-
+import { useMemo, useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import ebv from "assets/icons/ebv.id.svg";
 import cineOne from "assets/icons/CineOne21.svg";
 import privateRoute from "utils/wrapper/privateRoute";
+import { getHistories } from "utils/https/payment";
+import Loader from "components/Loader";
 
 function History() {
   //* temporary
@@ -26,9 +30,37 @@ function History() {
       isTicketActive: false,
     },
   ];
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const controller = useMemo(() => new AbortController(), []);
+  const token = useSelector((state) => state.auth.data.token);
+  const [dataHistory, setDataHistory] = useState([]);
+  const fetching = async () => {
+    setLoading(true);
+    try {
+      const result = await getHistories(token, controller);
+      //   console.log(result.data);
+      //   setLoading(false);
+      if (result.status && result.status === 200) {
+        setDataHistory(result.data.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetching();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout title={"Your Order History"}>
+      {loading ? <Loader /> : <></>}
       <div className="">
         <Navbar />
         <div className="board-tab lg:hidden gap-x-20 border-b border-b-[#DEDEDE] flex md:justify-between md:px-20 px-5 pt-10">
@@ -58,27 +90,29 @@ function History() {
                 <span className="border-b-2 border-b-tickitz-primary w-full"></span>
               </div>
             </div>
-            {historyData.map((historyDatum, index) => {
+            {dataHistory.map((historyDatum, index) => {
               return (
                 <div key={index} className="lg:px-8 px-3">
                   <div className="lg:border border-[#DEDEDE] bg-white rounded-lg flex flex-col gap-y-5 lg:p-8 p-4 lg:shadow-none shadow-[0px,8px,32px,rgba(186,186,186,0.16)]">
                     <div className="flex lg:flex-row flex-col-reverse gap-y-5 lg:items-center justify-between">
                       <div className="flex flex-col gap-y-3">
                         <p className="text-sm text-[#AAAAAA]">
-                          {historyDatum.time}
+                          {historyDatum.show_time}
                         </p>
                         <p className="font-semibold lg:text-2xl text-lg">
-                          {historyDatum.movieTitle}
+                          {historyDatum.movie_title}
                         </p>
                       </div>
                       <div>
                         <div
-                          className={`relative overflow-hidden w-[122px] h-[22px]`}
+                          className={`relative overflow-hidden w-[122px] h-[auto]`}
                         >
                           <Image
                             alt="cinema logo"
-                            src={historyDatum.cinema}
-                            fill={true}
+                            src={historyDatum.cinemas_brand_image}
+                            width={122}
+                            height={22}
+                            // fill={true}
                           />
                         </div>
                       </div>
@@ -86,16 +120,16 @@ function History() {
                     <div className="divider h-[1px] w-full bg-[#DEDEDE]"></div>
                     <div className="flex justify-between">
                       <div
-                        className={`${
-                          historyDatum.isTicketActive === false
-                            ? "bg-tickitz-label"
-                            : "bg-tickitz-success"
-                        } rounded p-2 lg:w-1/4 w-full`}
+                        className={`rounded p-4 lg:w-1/4 w-full ${
+                          historyDatum.transaction_status == "paid"
+                            ? "bg-tickitz-success cursor-pointer"
+                            : "bg-tickitz-greyBorder"
+                        }`}
                       >
-                        <p className="font-bold text-sm text-[#F7F7FC] text-center">
-                          {historyDatum.isTicketActive === false
-                            ? "Ticket used"
-                            : "Ticket in active"}
+                        <p className="font-bold text-sm text-center">
+                          {historyDatum.transaction_status == "paid"
+                            ? "Ticket in active"
+                            : "Unpaid ticket"}
                         </p>
                       </div>
                       <div className="lg:flex hidden items-center gap-x-3">

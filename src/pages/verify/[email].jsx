@@ -9,7 +9,8 @@ import { useRouter } from "next/router";
 import { verify } from "utils/https/auth";
 import swal from "sweetalert";
 import Title from "utils/wrapper/title";
-import privateRoute from "utils/wrapper/privateRoute";
+import publicRoute from "utils/wrapper/publicRoute";
+import Loader from "components/Loader";
 
 function Verify() {
   const controller = useMemo(() => new AbortController(), []);
@@ -42,6 +43,7 @@ function Verify() {
 
   return (
     <>
+      {isLoading ? <Loader /> : <></>}
       <Title title="Verification">
         <main className=" flex w-full h-full ">
           <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
@@ -161,4 +163,4 @@ function Verify() {
   );
 }
 
-export default privateRoute(verify);
+export default publicRoute(Verify);
