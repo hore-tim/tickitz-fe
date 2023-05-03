@@ -32,7 +32,7 @@ export default function Navbar() {
         </div>
         <div className="lg:flex hidden gap-14 font-semibold text-[#414141]">
           <Link href={"/movies"}>Movies</Link>
-          <p>Cinemas</p>
+          <Link href={"/cinemas"}>Cinemas</Link>
           <p>Buy Ticket</p>
         </div>
       </section>
