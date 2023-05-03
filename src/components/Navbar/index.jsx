@@ -19,11 +19,7 @@ export default function Navbar() {
     setIsOpen(true);
   };
   const dataUser = useSelector((state) => state.auth);
-  const userData = useSelector((state) => state.profile);
-  // console.log(userData.data);
-
-  const profileUser = userData.data;
-  // console.log(profileUser.image);
+  const imageUser = useSelector((state) => state.profile.data.image);
 
   return (
     <>
@@ -106,7 +102,7 @@ export default function Navbar() {
                 onClick={handleMenuToggle}
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer">
                 <Image
-                  src={!profileUser.image ? pp : profileUser.image}
+                  src={imageUser ? imageUser : pp}
                   width={56}
                   height={56}
                   alt="photoProfile"
