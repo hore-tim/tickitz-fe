@@ -8,6 +8,7 @@ import hiflix from "assets/icons/hiflix.svg";
 import cineone from "assets/icons/CineOne21.svg";
 import ebv from "assets/icons/ebv.id.svg";
 import Title from "utils/wrapper/title";
+import privateRoute from "utils/wrapper/privateRoute";
 function ListCategory({ name, listCategory, handleClick }) {
   const isCategory = listCategory && listCategory.includes(name);
 
@@ -23,7 +24,7 @@ function ListCategory({ name, listCategory, handleClick }) {
   );
 }
 
-export default function Admin() {
+function Admin() {
   const [image, setImage] = useState();
 
   const showSetImage = () => {
@@ -362,3 +363,5 @@ export default function Admin() {
     </>
   );
 }
+
+export default privateRoute(Admin);

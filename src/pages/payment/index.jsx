@@ -12,7 +12,8 @@ import gpay from "assets/icons/gpay.svg";
 import visa from "assets/icons/visa.svg";
 import Link from "next/link";
 import Title from "utils/wrapper/title";
-export default function Payment() {
+import privateRoute from "utils/wrapper/privateRoute";
+function Payment() {
   return (
     <>
       <Title title="Payment">
@@ -205,3 +206,5 @@ export default function Payment() {
     </>
   );
 }
+
+export default privateRoute(Payment);

@@ -6,18 +6,21 @@ import brandingFill from "assets/icons/Tickitzyn2.svg";
 import google from "assets/icons/google.svg";
 import facebook from "assets/icons/fb.svg";
 import { login } from "utils/https/auth";
+import { profileAction } from "redux/slices/user";
 import { authAction } from "redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
 import { useRouter } from "next/router";
+import publicRoute from "utils/wrapper/publicRoute";
 
-export default function Login() {
+function Login() {
   const [iconEye, setIconEye] = useState(false);
   const toggleIcon = () => {
     iconEye ? setIconEye(false) : setIconEye(true);
   };
+  const controller = useMemo(() => new AbortController(), []);
 
   const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState({ email: "", password: "" });
@@ -73,13 +76,13 @@ export default function Login() {
       .unwrap()
       .then((res) => {
         console.log(res);
+        dispatch(
+          profileAction.getProfile({
+            token: res.token,
+            controller,
+          })
+        );
         router.push("/");
-        // getProfileData(token, controller)
-        //   .then((res) => {
-        //     // setProfileData(res["data"]["data"][0]);
-        //   })
-        //   .catch((err) => console.log(err));
-        // // swal("Success", res.msg, "success");
       })
       .catch((error) => {
         console.log(error);
@@ -210,3 +213,5 @@ export default function Login() {
     </>
   );
 }
+
+export default publicRoute(Login);

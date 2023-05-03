@@ -10,8 +10,9 @@ import { resetPwd } from "utils/https/auth";
 import swal from "sweetalert";
 import Loader from "components/Loader";
 import Title from "utils/wrapper/title";
+import publicRoute from "utils/wrapper/publicRoute";
 
-export default function Otp() {
+function Otp() {
   const [iconEye, setIconEye] = useState(false);
   const toggleIcon = () => {
     iconEye ? setIconEye(false) : setIconEye(true);
@@ -229,3 +230,5 @@ export default function Otp() {
     </>
   );
 }
+
+export default publicRoute(Otp);

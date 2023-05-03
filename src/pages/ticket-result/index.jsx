@@ -7,7 +7,7 @@ import QRCodeGenerator from "utils/qrCode";
 import Title from "utils/wrapper/title";
 import PrivateRoute from "utils/wrapper/privateRoute";
 
-export default function TicketResult() {
+function TicketResult() {
   const [qrCodeImage, setQrCodeImage] = useState("hiphiphore");
   return (
     <>
@@ -99,3 +99,4 @@ export default function TicketResult() {
     </>
   );
 }
+export default PrivateRoute(TicketResult);

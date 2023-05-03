@@ -19,7 +19,11 @@ export default function Navbar() {
     setIsOpen(true);
   };
   const dataUser = useSelector((state) => state.auth);
-  const profileUser = dataUser.data;
+  const userData = useSelector((state) => state.profile);
+  // console.log(userData.data);
+
+  const profileUser = userData.data;
+  // console.log(profileUser.image);
 
   console.log(dataUser);
 
@@ -139,7 +143,6 @@ export default function Navbar() {
                   >
                     Profile
                   </Link>
-                  {/* <form method="POST" action="#" role="none"> */}
                   <button
                     // type="submit"
                     class="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 hover:text-gray-900 transition-colors"
@@ -150,7 +153,6 @@ export default function Navbar() {
                   >
                     Logout
                   </button>
-                  {/* </form> */}
                 </div>
               </div>
             </>

@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import PrivateRoute from "utils/wrapper/privateRoute";
+import { useDispatch } from "react-redux";
+import { profileAction } from "redux/slices/user";
 import {
   getProfileData,
   changeProfileData,
@@ -18,7 +20,7 @@ import Loader from "components/Loader";
 
 function Profile() {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.data.token);
 
   const controller = useMemo(() => new AbortController(), []);
@@ -90,6 +92,7 @@ function Profile() {
               setTimeout(() => {
                 router.reload();
               }, 3000);
+
               console.log(data["data"]["msg"]);
               return data["data"]["msg"];
             },
