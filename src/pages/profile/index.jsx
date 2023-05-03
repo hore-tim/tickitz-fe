@@ -10,6 +10,7 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
 import Sidebar from "components/Sidebar";
+import Loader from "components/Loader";
 
 export default function Profile() {
 	const router = useRouter();
@@ -33,13 +34,16 @@ export default function Profile() {
 		newPassword: "",
 		confirmPassword: "",
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const phoneNumber = profileData["phone"];
 
 	useEffect(() => {
+		setIsLoading(true);
 		getProfileData(token, controller)
 			.then((res) => {
 				setProfileData(res["data"]["data"][0]);
+				setIsLoading(false);
 			})
 			.catch((err) => console.log(err));
 	}, [token, controller]);
@@ -119,6 +123,7 @@ export default function Profile() {
 	return (
 		<Layout title={"Your Profile"}>
 			<div className="">
+				{isLoading && <Loader />}
 				<Navbar />
 				<div className="board-tab lg:hidden gap-x-20 border-b border-b-[#DEDEDE] flex md:justify-between md:px-20 px-5 pt-10">
 					<div className="cursor-pointer flex flex-col gap-y-5">
