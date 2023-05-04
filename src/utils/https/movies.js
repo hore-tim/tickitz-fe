@@ -8,6 +8,12 @@ export const getAllMovies = (limit, sort, page, search, controller) => {
 	return axios.get(url, config);
 };
 
+export const getMovies = (controller) => {
+	const url = `${baseUrl}/movies?limit=5`
+	const config = { signal: controller.signal };
+	return axios.get(url, config);
+}
+
 export const getSingleMovie = (id, controller) => {
 	const url = `${baseUrl}/movies/${id}`
 	const config = { signal: controller.signal };
