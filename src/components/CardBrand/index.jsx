@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 function ShowTime({ time }) {
   return (
@@ -9,7 +10,18 @@ function ShowTime({ time }) {
   );
 }
 
-export default function CardBrand({ name, address, image, price, showtime }) {
+export default function CardBrand({
+  id,
+  name,
+  address,
+  image,
+  price,
+  showtime,
+}) {
+  const router = useRouter();
+  const handleRoute = () => {
+    router.push(`/order/${id}`);
+  };
   return (
     <>
       <div className=" bg-white w-[23.813rem] h-[21.875rem] rounded-lg py-6">
@@ -20,6 +32,7 @@ export default function CardBrand({ name, address, image, price, showtime }) {
                 src={image}
                 alt="ebv.id"
                 width={106}
+                height={106}
                 className=" object-cover "
               />
             </div>
@@ -34,10 +47,8 @@ export default function CardBrand({ name, address, image, price, showtime }) {
           </div>
         </div>
         <hr className=" bg-tickitz-label mb-4" />
-        <div className=" flex px-8 flex-wrap gap-8 justify-start">
-          {showtime.map((data, idx) => {
-            return <ShowTime key={idx} time={data} />;
-          })}
+        <div className=" flex px-8 flex-wrap gap-8 justify-start text-tickitz-label font-semibold text-xs cursor-pointer">
+          {showtime}
         </div>
         <div className=" flex justify-between px-8 pt-6 pb-8">
           <div className=" text-base text-[#6B6B6B]">
@@ -48,7 +59,9 @@ export default function CardBrand({ name, address, image, price, showtime }) {
           </div>
         </div>
         <div className=" flex px-8 justify-between items-center">
-          <button className="w-[8.375rem] h-10 shadow-sm shadow-tickitz-primary bg-tickitz-primary text-sm text-white font-bold rounded-md hover:bg-tickitz-primary">
+          <button
+            className="w-[8.375rem] h-10 shadow-sm shadow-tickitz-primary bg-tickitz-primary text-sm text-white font-bold rounded-md hover:bg-tickitz-primary"
+            onClick={handleRoute}>
             Book now
           </button>
           <p className=" font-bold text-tickitz-primary text-base">

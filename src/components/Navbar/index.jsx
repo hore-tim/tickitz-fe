@@ -19,13 +19,7 @@ export default function Navbar() {
     setIsOpen(true);
   };
   const dataUser = useSelector((state) => state.auth);
-  const userData = useSelector((state) => state.profile);
-  // console.log(userData.data);
-
-  const profileUser = userData.data;
-  // console.log(profileUser.image);
-
-  console.log(dataUser);
+  const imageUser = useSelector((state) => state.profile.data.image);
 
   return (
 <<<<<<< HEAD
@@ -71,8 +65,12 @@ export default function Navbar() {
       {isOpen && <Logout isOpen={isOpen} setIsOpen={setIsOpen} />}
       <header className="navbar md:px-20 px-5 py-5">
         <section className="navbar-start flex gap-x-20">
+<<<<<<< HEAD
           <div>
 >>>>>>> 954be6b54b0701ebc67409707dec8ba08b1266d2
+=======
+          <Link href="/" className=" cursor-pointer">
+>>>>>>> 8d1bb5dd9ef86a9aa126da66a594eaf7e5001d60
             <svg
               width="130"
               height="51"
@@ -93,7 +91,7 @@ export default function Navbar() {
                 fill="#3D405B"
               />
             </svg>
-          </div>
+          </Link>
           <div className="lg:flex hidden gap-14 font-semibold text-[#414141]">
             <Link href={"/movies"}>Movies</Link>
             <p>Cinemas</p>
@@ -155,7 +153,7 @@ export default function Navbar() {
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
               >
                 <Image
-                  src={!profileUser.image ? pp : profileUser.image}
+                  src={imageUser ? imageUser : pp}
                   width={56}
                   height={56}
                   alt="photoProfile"

@@ -9,7 +9,7 @@ import Layout from "components/Layout";
 
 import posterHero from "assets/images/hero-poster.webp";
 
-export default function Home({ movies }) {
+export default function Home({ upcomingMovies, nowMovies }) {
 	const router = useRouter();
 
 	const months = [
@@ -65,9 +65,9 @@ export default function Home({ movies }) {
 							</div>
 							<div className="relative">
 								<div className="carousel pb-38 gap-x-5">
-									{movies &&
-										movies.length > 0 &&
-										movies.map((movie) => {
+									{nowMovies &&
+										nowMovies.length > 0 &&
+										nowMovies.map((movie) => {
 											return (
 												<div
 													key={movie.id}
@@ -141,9 +141,9 @@ export default function Home({ movies }) {
 							</div>
 							<div>
 								<div className="carousel gap-x-5">
-									{movies &&
-										movies.length > 0 &&
-										movies.map((movie) => {
+									{upcomingMovies &&
+										upcomingMovies.length > 0 &&
+										upcomingMovies.map((movie) => {
 											return (
 												<div key={movie.id} className="carousel-item cursor-pointer w-[210.63px]">
 													<div className="flex flex-col justify-between gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5">
@@ -221,14 +221,23 @@ export async function getServerSideProps() {
 	let props = {};
 	try {
 		const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
-		const { data } = await axios.get(`${baseUrl}/movies`);
+		const { data } = await axios.get(`${baseUrl}/movies?show=now`);
 		console.log(data);
-		Object.assign(props, { movies: data.data });
+		Object.assign(props, { nowMovies: data.data });
 	} catch (error) {
 		console.log(error);
 	}
 
-	if (!Object.keys(props).includes("movies")) {
+	try {
+		const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
+		const { data } = await axios.get(`${baseUrl}/movies?show=2023-06`);
+		console.log(data);
+		Object.assign(props, { upcomingMovies: data.data });
+	} catch (error) {
+		console.log(error);
+	}
+
+	if (!Object.keys(props).includes("nowMovies" || "upcomingMovies")) {
 		return {
 			redirect: {
 				destination: "/500",
