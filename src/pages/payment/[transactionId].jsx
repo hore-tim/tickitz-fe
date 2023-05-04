@@ -19,56 +19,65 @@ import { useSelector } from "react-redux";
 import Loader from "components/Loader";
 
 function Payment() {
-  const { email, first_name, last_name, phone} = useSelector((state) => state.profile.data)
-  const [transactionData, setTransactionData] = useState([])
-  const [payment, setPayment] = useState(null)
-  const [emailGet, setEmailGet] = useState(email)
-  const [fullName, setFullName] = useState(first_name === null && last_name === null ? '-' : `${first_name} ${last_name}`)
-  const [phoneNumber, setPhoneNumber] = useState(phone)
-  const [isLoading, setIsLoading] = useState(false)
+  const { email, first_name, last_name, phone } = useSelector(
+    (state) => state.profile.data
+  );
+  const [transactionData, setTransactionData] = useState([]);
+  const [payment, setPayment] = useState(null);
+  const [emailGet, setEmailGet] = useState(email);
+  const [fullName, setFullName] = useState(
+    first_name === null && last_name === null
+      ? "-"
+      : `${first_name} ${last_name}`
+  );
+  const [phoneNumber, setPhoneNumber] = useState(phone);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const transactionId = router.query.transactionId;
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    let getData = true
+    let getData = true;
     if (getData) {
-      setIsLoading(true)
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/transaction/${transactionId}`
-      axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }).then(res => setTransactionData(res.data.data)).catch(err => console.log(err)).finally(() => setIsLoading(false))
+      setIsLoading(true);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/transaction/${transactionId}`;
+      axios
+        .get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => setTransactionData(res.data.data))
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false));
     }
 
-    return () => {getData = false}
-
-  }, [transactionId, token])
-
+    return () => {
+      getData = false;
+    };
+  }, [transactionId, token]);
 
   const payOrder = async () => {
     try {
-      setIsLoading(true)
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/transaction`
+      setIsLoading(true);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/transaction`;
       const body = {
         transaction_id: transactionId,
-        payment_id: payment
-      }
+        payment_id: payment,
+      };
       const result = await axios.patch(url, body, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(result);
-      router.push('/ticket-result')
+      router.push(`/ticket-result/${transactionId}`);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-
-  }
+  };
 
   // if (isLoading) {return <Loader />}
   return (
@@ -82,9 +91,10 @@ function Payment() {
                 Payment Info
               </h2>
               {transactionData.map((data, i) => {
-
                 return (
-                  <div key={i} className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md">
+                  <div
+                    key={i}
+                    className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md">
                     <div className=" flex justify-between py-6 border-b border-tickitz-greyBorder">
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Date & time
@@ -105,26 +115,33 @@ function Payment() {
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Cinema name
                       </p>
-                      <p className=" text-base md:text-xl">{data.cinemas_name}</p>
+                      <p className=" text-base md:text-xl">
+                        {data.cinemas_name}
+                      </p>
                     </div>
                     <div className=" flex justify-between py-6 border-b border-tickitz-greyBorder">
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Number of tickets
                       </p>
-                      <p className=" text-base md:text-xl">{data.seats.length} pieces</p>
+                      <p className=" text-base md:text-xl">
+                        {data.seats.length} pieces
+                      </p>
                     </div>
                     <div className=" flex justify-between py-6 ">
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Total payment
                       </p>
                       <p className=" text-base md:text-xl font-semibold">
-                        Rp.{data.seats.map((d, i) => d.price).reduce((a, b) => (a + b)).toLocaleString()}
+                        Rp.
+                        {data.seats
+                          .map((d, i) => d.price)
+                          .reduce((a, b) => a + b)
+                          .toLocaleString()}
                       </p>
                     </div>
                   </div>
-                )
+                );
               })}
-
             </section>
             <section className=" flex flex-col gap-6 w-full ">
               <h2 className=" font-bold text-tickitz-darkTitle text-2xl">
@@ -132,28 +149,60 @@ function Payment() {
               </h2>
               <div className="flex flex-col w-full bg-white px-4 lg:px-12 py-14 rounded-md">
                 <div className=" flex flex-wrap gap-x-6 gap-y-8 items-center justify-center lg:justify-between">
-                  <div className={` ${payment === 1 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(1)}>
+                  <div
+                    className={` ${
+                      payment === 1 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(1)}>
                     <Image src={gpay} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 2 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(2)}>
+                  <div
+                    className={` ${
+                      payment === 2 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(2)}>
                     <Image src={visa} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 3 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(3)}>
+                  <div
+                    className={` ${
+                      payment === 3 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(3)}>
                     <Image src={gopay} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 4 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(4)}>
+                  <div
+                    className={` ${
+                      payment === 4 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(4)}>
                     <Image src={paypal} alt="gpay" className=" w-5 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 5 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(5)}>
+                  <div
+                    className={` ${
+                      payment === 5 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(5)}>
                     <Image src={dana} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 6 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(6)}>
+                  <div
+                    className={` ${
+                      payment === 6 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(6)}>
                     <Image src={bca} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 7 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(7)}>
+                  <div
+                    className={` ${
+                      payment === 7 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(7)}>
                     <Image src={bri} alt="gpay" className=" w-7 md:w-auto" />
                   </div>
-                  <div className={` ${payment === 8 && 'shadow-lg'} cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`} onClick={() => setPayment(8)}>
+                  <div
+                    className={` ${
+                      payment === 8 && "shadow-lg"
+                    } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
+                    onClick={() => setPayment(8)}>
                     <Image src={ovo} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                 </div>
@@ -229,7 +278,7 @@ function Payment() {
                   <input
                     type="text"
                     className=" w-full py-5 px-8 border border-tickitz-greyBorder rounded-md outline-none text-lg text-tickitz-basic"
-                    value={ fullName}
+                    value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                   />
                 </div>
@@ -251,7 +300,7 @@ function Payment() {
                   <input
                     type="text"
                     className=" w-full px-6 py-3 py md:py-5 md:px-8 border border-tickitz-greyBorder rounded-md outline-none text-lg text-tickitz-basic"
-                    value={phoneNumber ? phoneNumber : '-'}
+                    value={phoneNumber ? phoneNumber : "-"}
                     onChange={(e) => phoneNumber(e.target.value)}
                   />
                 </div>
@@ -264,7 +313,10 @@ function Payment() {
               </form>
             </section>
             <div className=" w-full justify-between flex lg:hidden mt-5 ">
-              <button type="button" className=" btn shadow-md shadow-tickitz-label bg-tickitz-primary text-white  text-base hover:bg-tickitz-primary hover:text-white w-full h-14 md:h-16 justify-center items-center font-bold border-2 border-tickitz-primary  rounded-[4px]" onClick={payOrder}>
+              <button
+                type="button"
+                className=" btn shadow-md shadow-tickitz-label bg-tickitz-primary text-white  text-base hover:bg-tickitz-primary hover:text-white w-full h-14 md:h-16 justify-center items-center font-bold border-2 border-tickitz-primary  rounded-[4px]"
+                onClick={payOrder}>
                 Pay your order
               </button>
             </div>

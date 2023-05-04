@@ -19,6 +19,8 @@ function Order() {
   const [loading, setLoading] = useState();
   const [seat, setSeat] = useState([]);
   const token = useSelector((state) => state.auth.data.token);
+  // console.log(router.query);
+  const show_id = router.query.show_id;
   // console.log(idSeat);
   // console.log(seat);
   // console.log(datas);
@@ -48,7 +50,6 @@ function Order() {
         setLoading(false);
       });
   };
-  const show_id = "1";
   useEffect(() => {
     setLoading(true);
     getOrderPage(show_id, controller)
