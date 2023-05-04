@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import pp from "assets/images/place00.jpg";
+import pp from "assets/images/profile-placeholder.webp";
 import Logout from "components/Logout";
 
 export default function Navbar() {
