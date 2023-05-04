@@ -77,8 +77,8 @@ function History() {
         </div>
         <main className="bg-[#F5F6F8] flex lg:flex-row flex-col gap-x-5 gap-y-5 lg:px-20 px-5 lg:py-10 py-5">
           <Sidebar isHistory={true} />
-          <section className="lg:bg-white bg-transparent lg:w-2/3 w-full flex flex-col rounded-md shadow-[0px,8px,32px,rgba(186,186,186,0.08)] py-12 gap-y-10">
-            <div className="board-tab lg:flex gap-x-20 border-b border-b-[#DEDEDE] hidden px-8">
+          <section className="lg:bg-white  bg-transparent lg:w-2/3 w-full flex flex-col rounded-md shadow-[0px,8px,32px,rgba(186,186,186,0.08)] py-12 gap-y-10 h-screen overflow-scroll overflow-x-hidden">
+            <div className="board-tab lg:flex gap-x-20 border-b border-b-[#DEDEDE] hidden px-8  bg-white">
               <div className="cursor-pointer flex flex-col gap-y-5">
                 <Link href={"/profile"} className="text-lg text-[#AAAAAA]">
                   Account Settings
@@ -92,12 +92,12 @@ function History() {
             </div>
             {dataHistory.map((historyDatum, index) => {
               return (
-                <div key={index} className="lg:px-8 px-3">
+                <div key={index} className="lg:px-8 px-3 ">
                   <div className="lg:border border-[#DEDEDE] bg-white rounded-lg flex flex-col gap-y-5 lg:p-8 p-4 lg:shadow-none shadow-[0px,8px,32px,rgba(186,186,186,0.16)]">
                     <div className="flex lg:flex-row flex-col-reverse gap-y-5 lg:items-center justify-between">
                       <div className="flex flex-col gap-y-3">
-                        <p className="text-sm text-[#AAAAAA]">
-                          {historyDatum.show_time}
+                        <p className="text-sm text-[#AAAAAA] gap-3 ">
+                          {historyDatum.show_time} - {historyDatum.show_date}
                         </p>
                         <p className="font-semibold lg:text-2xl text-lg">
                           {historyDatum.movie_title}
