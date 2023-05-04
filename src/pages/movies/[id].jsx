@@ -24,31 +24,32 @@ export default function Details() {
 
   const controller = useMemo(() => new AbortController(), []);
 
-	const [movieData, setMovieData] = useState([]);
-	const [cardData, setCardData] = useState([]);
-	const [location, setLocation] = useState("Jakarta");
-	const [isLoading, setIsLoading] = useState(false);
+  const [movieData, setMovieData] = useState([]);
+  const [cardData, setCardData] = useState([]);
+  const [location, setLocation] = useState("Jakarta");
+  const [isLoading, setIsLoading] = useState(false);
 
-	useEffect(() => {
-		setIsLoading(true)
-		if (id) {
-			getSingleMovie(id, controller)
-				.then((res) => {
-					setMovieData(res["data"]["data"][0]);
-					setIsLoading(false)
-				})
-				.catch((err) => console.log(err));
+  useEffect(() => {
+    setIsLoading(true);
+    if (id) {
+      getSingleMovie(id, controller)
+        .then((res) => {
+          setMovieData(res["data"]["data"][0]);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
 
-			getAllShow(location, id, controller)
-			.then((res) => {
-				setCardData(res["data"]["data"])
-				setIsLoading(false)
-			}).catch((err) => {
-				console.log(err.response.data)
-				setCardData(err.response.data.data)
-			})
-		}
-	}, [id, location, controller]);
+      getAllShow(location, id, controller)
+        .then((res) => {
+          setCardData(res["data"]["data"]);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          setCardData(err.response.data.data);
+        });
+    }
+  }, [id, location, controller]);
 
   const releaseDate = DateTime.fromISO(movieData["release_date"]).toFormat(
     "MMMM dd, yyyy"
@@ -66,65 +67,65 @@ export default function Details() {
     hours ? hours + " hour" + (hours > 1 ? "s" : "") : ""
   } ${minutes ? minutes + " minute" + (minutes > 1 ? "s" : "") : ""}`.trim();
 
-	// const cardData = [
-	// 	{
-	// 		name: "Ebv",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: ebv,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Hiflix",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: hiflix,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Ebv",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: ebv,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Hiflix",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: hiflix,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Ebv",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: ebv,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Hiflix",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: hiflix,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "Ebv",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: ebv,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// 	{
-	// 		name: "CineOne21",
-	// 		address: "Whatever street No.12, South Purwokerto",
-	// 		image: cineone,
-	// 		price: 30000,
-	// 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
-	// 	},
-	// ];
-
+  // const cardData = [
+  // 	{
+  // 		name: "Ebv",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: ebv,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Hiflix",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: hiflix,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Ebv",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: ebv,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Hiflix",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: hiflix,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Ebv",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: ebv,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Hiflix",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: hiflix,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "Ebv",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: ebv,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // 	{
+  // 		name: "CineOne21",
+  // 		address: "Whatever street No.12, South Purwokerto",
+  // 		image: cineone,
+  // 		price: 30000,
+  // 		showtime: ["08.10am", "09.20am", "10.00am", "11.10am", "12.40am", "14.10am", "14.50am"],
+  // 	},
+  // ];
+  console.log(cardData);
   return (
     <Layout title={movieData["title"] ? movieData["title"] : "Movie detail"}>
       {isLoading && <Loader />}
@@ -217,8 +218,7 @@ export default function Details() {
             <div className="dropdown flex bg-[#EFF0F6] w-72 h-14 rounded-md px-6 cursor-pointer">
               <label
                 tabIndex={0}
-                className="flex justify-between items-center gap-x-3 w-full cursor-pointer"
-              >
+                className="flex justify-between items-center gap-x-3 w-full cursor-pointer">
                 <div className="flex gap-1 justify-center items-center">
                   <i className="bi bi-geo-alt-fill text-[1.2rem]"></i>
                   <p className="text-[1rem]">
@@ -231,8 +231,7 @@ export default function Details() {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-lg w-60"
-              >
+                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-lg w-60">
                 <li onClick={() => setLocation("Jakarta")}>
                   <p>Jakarta</p>
                 </li>
@@ -253,6 +252,7 @@ export default function Details() {
               return (
                 <CardBrand
                   key={idx}
+                  id={data.id}
                   name={data.cinema_title}
                   address={data.address}
                   image={data.cinema_brand_image}
@@ -262,13 +262,17 @@ export default function Details() {
               );
             })}
           </section>
-					{cardData.length > 10 && (<div className=" flex gap-12 py-12 w-full items-center">
-            <div className=" w-full h-[1px] bg-tickitz-label"></div>
-            <div className=" w-max">
-              <p className=" text-tickitz-primary font-bold w-max">View More</p>
+          {cardData.length > 10 && (
+            <div className=" flex gap-12 py-12 w-full items-center">
+              <div className=" w-full h-[1px] bg-tickitz-label"></div>
+              <div className=" w-max">
+                <p className=" text-tickitz-primary font-bold w-max">
+                  View More
+                </p>
+              </div>
+              <div className=" w-full h-[1px] bg-tickitz-label"></div>
             </div>
-            <div className=" w-full h-[1px] bg-tickitz-label"></div>
-          </div>)}
+          )}
           {/* <div className=" flex gap-12 py-12 w-full items-center">
             <div className=" w-full h-[1px] bg-tickitz-label"></div>
             <div className=" w-max">
