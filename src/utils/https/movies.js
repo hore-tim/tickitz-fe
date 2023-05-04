@@ -19,3 +19,9 @@ export const getAllShow = (city_name, movie_id, controller) => {
 	const config = { signal: controller.signal };
 	return axios.get(url, config);
 }
+
+export const getTransactionById = (transaction_id, token, controller) => {
+	const url = `${baseUrl}/transaction/${transaction_id}`
+	const config = { headers: { Authorization: `Bearer ${token}` }, signal: controller.signal };
+	return axios.get(url, config)
+}
