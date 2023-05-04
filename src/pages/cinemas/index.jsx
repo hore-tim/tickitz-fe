@@ -4,6 +4,7 @@ import Footer from "components/Footer";
 import Layout from "components/Layout";
 // import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Cinemas() {
   // const [JktCinemas, setJktCinemas] = useState(false);
@@ -13,7 +14,7 @@ export default function Cinemas() {
   const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
   // };
   const [cinemas, setCinemas] = useState([]);
-
+  const router = useRouter();
   let cityId;
 
   const handleChange = (event) => {
@@ -29,6 +30,10 @@ export default function Cinemas() {
     setCinemas(response.data.data);
     console.log(response.data);
     console.log(cinemas);
+  }
+
+  const redirectBioskop = (id) => {
+    router.push('cinemas/CineOne')
   }
 
   return (
@@ -71,7 +76,7 @@ export default function Cinemas() {
                     {
                     cinemas.map((cinema) => {
                       console.log(cinema);
-                      return<li className="cursor-pointer font-bold text-lg hover:bg-primary hover:rounded-md" key={cinema.id}>{cinema.cinema_name}</li>
+                      return<li onClick={redirectBioskop} className="cursor-pointer font-bold text-lg hover:bg-primary hover:rounded-md" key={cinema.id}>{cinema.cinema_name}</li>
                     })
                     }
                   </ul>
