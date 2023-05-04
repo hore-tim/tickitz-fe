@@ -77,10 +77,18 @@ export default function Navbar() {
               tabIndex={0}
               className="dropdown-content menu p-8 shadow bg-white rounded-box w-52 gap-y-5 cursor-pointer"
             >
-              <li>Purwokerto</li>
-              <li>Padang</li>
-              <li>Malang</li>
-              <li>Tuban</li>
+              <li>
+                  <p>Jakarta</p>
+               </li>
+                <li>
+                  <p>Surabaya</p>
+                </li>
+                <li>
+                  <p>Semarang</p>
+                </li>
+                <li>
+                  <p>Padang</p>
+                </li>
             </ul>
           </div>
           <div className="lg:flex hidden cursor-pointer">
