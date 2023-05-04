@@ -94,7 +94,8 @@ function Payment() {
                 return (
                   <div
                     key={i}
-                    className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md">
+                    className=" flex flex-col w-full bg-white px-6 md:px-10 py-6 rounded-md"
+                  >
                     <div className=" flex justify-between py-6 border-b border-tickitz-greyBorder">
                       <p className=" text-[#6B6B6B] text-base md:text-xl">
                         Date & time
@@ -151,58 +152,74 @@ function Payment() {
                 <div className=" flex flex-wrap gap-x-6 gap-y-8 items-center justify-center lg:justify-between">
                   <div
                     className={` ${
-                      payment === 1 && "shadow-lg"
+                      payment === 1 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(1)}>
+                    onClick={() => setPayment(1)}
+                  >
                     <Image src={gpay} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 2 && "shadow-lg"
+                      payment === 2 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(2)}>
+                    onClick={() => setPayment(2)}
+                  >
                     <Image src={visa} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 3 && "shadow-lg"
+                      payment === 3 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(3)}>
+                    onClick={() => setPayment(3)}
+                  >
                     <Image src={gopay} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 4 && "shadow-lg"
+                      payment === 4 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(4)}>
+                    onClick={() => setPayment(4)}
+                  >
                     <Image src={paypal} alt="gpay" className=" w-5 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 5 && "shadow-lg"
+                      payment === 5 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(5)}>
+                    onClick={() => setPayment(5)}
+                  >
                     <Image src={dana} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 6 && "shadow-lg"
+                      payment === 6 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(6)}>
+                    onClick={() => setPayment(6)}
+                  >
                     <Image src={bca} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 7 && "shadow-lg"
+                      payment === 7 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(7)}>
+                    onClick={() => setPayment(7)}
+                  >
                     <Image src={bri} alt="gpay" className=" w-7 md:w-auto" />
                   </div>
                   <div
                     className={` ${
-                      payment === 8 && "shadow-lg"
+                      payment === 8 &&
+                      "shadow-lg border-[5px] border-tickitz-success shadow-tickitz-success"
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
-                    onClick={() => setPayment(8)}>
+                    onClick={() => setPayment(8)}
+                  >
                     <Image src={ovo} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                 </div>
@@ -226,7 +243,10 @@ function Payment() {
                 <button className=" btn shadow-md shadow-tickitz-label bg-white text-tickitz-primary  text-base hover:bg-white hover:text-tickitz-primary w-max md:w-[18.8rem] h-14 justify-center items-center font-bold border-2 border-tickitz-basic  rounded-[4px]">
                   Previous step
                 </button>
-                <button className=" btn shadow-md shadow-tickitz-label bg-tickitz-primary text-white  text-base hover:bg-tickitz-primary hover:text-white w-max md:w-[18.8rem] h-14 justify-center items-center font-bold border-none  rounded-[4px]">
+                <button
+                  onClick={payOrder}
+                  className=" btn shadow-md shadow-tickitz-label bg-tickitz-primary text-white  text-base hover:bg-tickitz-primary hover:text-white w-max md:w-[18.8rem] h-14 justify-center items-center font-bold border-none  rounded-[4px]"
+                >
                   Pay your order
                 </button>
               </div>
@@ -316,7 +336,8 @@ function Payment() {
               <button
                 type="button"
                 className=" btn shadow-md shadow-tickitz-label bg-tickitz-primary text-white  text-base hover:bg-tickitz-primary hover:text-white w-full h-14 md:h-16 justify-center items-center font-bold border-2 border-tickitz-primary  rounded-[4px]"
-                onClick={payOrder}>
+                onClick={payOrder}
+              >
                 Pay your order
               </button>
             </div>
