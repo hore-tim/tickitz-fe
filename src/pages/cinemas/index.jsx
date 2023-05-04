@@ -14,16 +14,21 @@ export default function Cinemas() {
   // };
   const [cinemas, setCinemas] = useState([]);
 
+  let cityId;
+
   const handleChange = (event) => {
-    const cityId = event.target.getAttribute('data-city-id');
+    cityId = event.target.getAttribute('data-city-id');
+    console.log("btn clicked")
     fetchCinemas(cityId);
     console.log(cityId);
   }
 
-  const fetchCinemas = async ({cityId}) => {
+  const fetchCinemas = async () => {
+    console.log(cinemas);
     const response = await axios.get(`${baseUrl}/cinemas?cityId=${cityId}`);
-    setCinemas(response.data);
-    console.log(setCinemas);
+    setCinemas(response.data.data);
+    console.log(response.data);
+    console.log(cinemas);
   }
 
   return (
@@ -58,25 +63,17 @@ export default function Cinemas() {
                 </div>
                 <div className="grid grid-cols-4 gap-5 w-full justify-items-center">
                   <button onClick={handleChange} data-city-id="1" className="font-bold text-lg cursor-pointer hover:text-primary">Jakarta</button>
-                  <button onClick={handleChange} data-city-id="2" className="font-bold text-lg cursor-pointer hover:text-primary">Padang</button>
-                  <button onClick={handleChange} data-city-id="3" className="font-bold text-lg cursor-pointer hover:text-primary">Malang</button>
-                  <button onClick={handleChange} data-city-id="4" className="font-bold text-lg cursor-pointer hover:text-primary">Tuban</button>
-                  <button onClick={handleChange} data-city-id="1" className="font-bold text-lg cursor-pointer hover:text-primary">Purwokerto</button>
-                  <button onClick={handleChange} data-city-id="1" className="font-bold text-lg cursor-pointer hover:text-primary">Padang</button>
-                  <button onClick={handleChange} data-city-id="1" className="font-bold text-lg cursor-pointer hover:text-primary">Malang</button>
-                  <button onClick={handleChange} data-city-id="1" className="font-bold text-lg cursor-pointer hover:text-primary">Tuban</button>
+                  <button onClick={handleChange} data-city-id="2" className="font-bold text-lg cursor-pointer hover:text-primary">Surabaya</button>
                 </div>
                 <div className="border-b-2 border-black w-full py-[1vw]"></div>
                 <div className="py-[1vw]">
-                  <ul>
-                    {cinemas.map(cinema => (
-                      <>
-                      <li key={cinema.id}></li>
-                      <li key={cinema.address}></li>
-                      <li key={cinema.cinema_name}></li>
-                      <li key={cinema.city}></li>
-                      </>
-                    ))}
+                  <ul className="p-[1vw] flex gap-5">
+                    {
+                    cinemas.map((cinema) => {
+                      console.log(cinema);
+                      return<li className="cursor-pointer font-bold text-lg hover:bg-primary hover:rounded-md" key={cinema.id}>{cinema.cinema_name}</li>
+                    })
+                    }
                   </ul>
                   {/* <div >
                                         {JktCinemas &&
