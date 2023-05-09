@@ -4,6 +4,7 @@ import Footer from "components/Footer";
 import Layout from "components/Layout";
 // import Link from "next/link";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Cinemas() {
   // const [JktCinemas, setJktCinemas] = useState(false);
