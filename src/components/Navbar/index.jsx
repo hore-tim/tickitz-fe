@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import pp from "assets/images/profile-placeholder.webp";
+import pp from "assets/images/place00.jpg";
 import Logout from "components/Logout";
 
 export default function Navbar() {
@@ -19,14 +19,20 @@ export default function Navbar() {
     setIsOpen(true);
   };
   const dataUser = useSelector((state) => state.auth);
-  const imageUser = useSelector((state) => state.profile.data.image);
+  const userData = useSelector((state) => state.profile);
+  // console.log(userData.data);
+
+  const profileUser = userData.data;
+  // console.log(profileUser.image);
+
+  console.log(dataUser);
 
   return (
     <>
       {isOpen && <Logout isOpen={isOpen} setIsOpen={setIsOpen} />}
       <header className="navbar md:px-20 px-5 py-5">
         <section className="navbar-start flex gap-x-20">
-          <Link href="/" className=" cursor-pointer">
+          <div>
             <svg
               width="130"
               height="51"
@@ -47,10 +53,10 @@ export default function Navbar() {
                 fill="#3D405B"
               />
             </svg>
-          </Link>
+          </div>
           <div className="lg:flex hidden gap-14 font-semibold text-[#414141]">
             <Link href={"/movies"}>Movies</Link>
-            <p>Cinemas</p>
+            <Link href={"/cinemas"}>Cinemas</Link>
             <p>Buy Ticket</p>
           </div>
         </section>
@@ -117,7 +123,7 @@ export default function Navbar() {
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
               >
                 <Image
-                  src={imageUser ? imageUser : pp}
+                  src={!profileUser.image ? pp : profileUser.image}
                   width={56}
                   height={56}
                   alt="photoProfile"
