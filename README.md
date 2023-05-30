@@ -58,8 +58,17 @@ npm run start
 Technologies used in the project:
 
 *   [NextJS](https://nextjs.org/)
+*   [Redux](https://github.com/reduxjs/redux)
 *   [TailwindCSS](https://tailwindcss.com/)
 *   [DaisyUI](https://daisyui.com/)
+
+<h2>👨‍💻 Contributors</h2>
+
+*   [M. Pria Admaja](https://github.com/priaadmaja) - Project manager & full-stack developer
+*   [Damar Anggoro](https://github.com/marrdamar) - Full-stack developer
+*   [Redha Definto](https://github/redhadefinto) - Back-end developer
+*   [Yanu Setiawan](https://github.com/yanu-setiawan) - Front-end developer
+*   [Akmal Susetio](https://github.com/wyakaga) - Front-end developer
 
 <h2>🛡️ License:</h2>
 
