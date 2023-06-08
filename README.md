@@ -4,19 +4,15 @@
 
 A repository for Tickitz website. You can also view the API respository [here](https://github.com/hore-tim/tickitz-be)
 
-<h2>🚀 Demo</h2>
+<h2>💻 Built with</h2>
 
-You can click it [here!](https://tickitz-id.vercel.app/)
+Technologies used in the project:
 
-<h2>Project Screenshots:</h2>
+*   [NextJS](https://nextjs.org/)
+*   [Redux](https://github.com/reduxjs/redux)
+*   [TailwindCSS](https://tailwindcss.com/)
+*   [DaisyUI](https://daisyui.com/)
 
-<img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/waDIvFk.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/6OasCr5.png" alt="project-screenshot">
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -50,17 +46,16 @@ NEXT_PUBLIC_FE_URL = [YOUR HOST URL]
 ```bash
 npm run start
 ```
+<h2>🚀 Demo</h2>
 
+You can click it [here!](https://tickitz-id.vercel.app/)
 
+<h2>Project Screenshots:</h2>
 
-<h2>💻 Built with</h2>
+<img src="https://user-images.githubusercontent.com/132048856/244252416-07bd5ffe-5e30-416d-80f2-375ad2f3359b.jpg" alt="project-screenshot">
 
-Technologies used in the project:
+<img src="https://user-images.githubusercontent.com/132048856/244252445-67bcaca2-bb94-449b-bc11-967cfa1f9588.jpg" alt="project-screenshot">
 
-*   [NextJS](https://nextjs.org/)
-*   [Redux](https://github.com/reduxjs/redux)
-*   [TailwindCSS](https://tailwindcss.com/)
-*   [DaisyUI](https://daisyui.com/)
 
 <h2>👨‍💻 Contributors</h2>
 
