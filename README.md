@@ -1,22 +1,15 @@
 <h1 id="title" align="center">Tickitz Front End</h1>
 
-<p align="center"><img src="https://socialify.git.ci/hore-tim/tickitz-fe/image?description=1&amp;descriptionEditable=This%20is%20the%20repository%20for%20Tickitz%20website&amp;forks=1&amp;language=1&amp;name=1&amp;owner=1&amp;theme=Dark" alt="project-image"></p>
+A repository for Tickitz website.
 
-A repository for Tickitz website. You can also view the API respository [here](https://github.com/hore-tim/tickitz-be)
+<h2>💻 Built with</h2>
 
-<h2>🚀 Demo</h2>
+Technologies used in the project:
 
-You can click it [here!](https://tickitz-id.vercel.app/)
-
-<h2>Project Screenshots:</h2>
-
-<img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/waDIvFk.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/6OasCr5.png" alt="project-screenshot">
+*   [NextJS](https://nextjs.org/)
+*   [Redux](https://github.com/reduxjs/redux)
+*   [TailwindCSS](https://tailwindcss.com/)
+*   [DaisyUI](https://daisyui.com/)
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -51,16 +44,18 @@ NEXT_PUBLIC_FE_URL = [YOUR HOST URL]
 npm run start
 ```
 
+<h2>🚀 Demo</h2>
 
+You can click it [here!](https://tickitz-id.vercel.app/)
 
-<h2>💻 Built with</h2>
+<h2>Project Screenshots:</h2>
 
-Technologies used in the project:
-
-*   [NextJS](https://nextjs.org/)
-*   [Redux](https://github.com/reduxjs/redux)
-*   [TailwindCSS](https://tailwindcss.com/)
-*   [DaisyUI](https://daisyui.com/)
+<div style="display: flex; flex-wrap: wrap; gap: 0.5%;">
+  <img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/waDIvFk.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/6OasCr5.png" alt="project-screenshot" width="45%">
+</div>
 
 <h2>👨‍💻 Contributors</h2>
 
@@ -73,3 +68,7 @@ Technologies used in the project:
 <h2>🛡️ License:</h2>
 
 This project is licensed under the ISC License
+
+<h2>Related Projects</h2>
+
+* [tickitz-be](https://github.com/hore-tim/tickitz-be) - back-end
