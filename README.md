@@ -1,8 +1,6 @@
 <h1 id="title" align="center">Tickitz Front End</h1>
 
-<p align="center"><img src="https://socialify.git.ci/hore-tim/tickitz-fe/image?description=1&amp;descriptionEditable=This%20is%20the%20repository%20for%20Tickitz%20website&amp;forks=1&amp;language=1&amp;name=1&amp;owner=1&amp;theme=Dark" alt="project-image"></p>
-
-A repository for Tickitz website. You can also view the API respository [here](https://github.com/hore-tim/tickitz-be)
+A repository for Tickitz website.
 
 <h2>💻 Built with</h2>
 
@@ -12,7 +10,6 @@ Technologies used in the project:
 *   [Redux](https://github.com/reduxjs/redux)
 *   [TailwindCSS](https://tailwindcss.com/)
 *   [DaisyUI](https://daisyui.com/)
-
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -54,8 +51,18 @@ You can click it [here!](https://tickitz-id.vercel.app/)
 
 <img src="https://user-images.githubusercontent.com/132048856/244252416-07bd5ffe-5e30-416d-80f2-375ad2f3359b.jpg" alt="project-screenshot">
 
-<img src="https://user-images.githubusercontent.com/132048856/244252445-67bcaca2-bb94-449b-bc11-967cfa1f9588.jpg" alt="project-screenshot">
+<h2>🚀 Demo</h2>
 
+You can click it [here!](https://tickitz-id.vercel.app/)
+
+<h2>Project Screenshots:</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5%;">
+  <img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/waDIvFk.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/6OasCr5.png" alt="project-screenshot" width="45%">
+</div>
 
 <h2>👨‍💻 Contributors</h2>
 
@@ -68,3 +75,7 @@ You can click it [here!](https://tickitz-id.vercel.app/)
 <h2>🛡️ License:</h2>
 
 This project is licensed under the ISC License
+
+<h2>Related Projects</h2>
+
+* [tickitz-be](https://github.com/hore-tim/tickitz-be) - back-end
