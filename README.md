@@ -43,13 +43,6 @@ NEXT_PUBLIC_FE_URL = [YOUR HOST URL]
 ```bash
 npm run start
 ```
-<h2>🚀 Demo</h2>
-
-You can click it [here!](https://tickitz-id.vercel.app/)
-
-<h2>Project Screenshots:</h2>
-
-<img src="https://user-images.githubusercontent.com/132048856/244252416-07bd5ffe-5e30-416d-80f2-375ad2f3359b.jpg" alt="project-screenshot">
 
 <h2>🚀 Demo</h2>
 
