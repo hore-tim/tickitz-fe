@@ -1,6 +1,6 @@
 <h1 id="title" align="center">Tickitz Front End</h1>
 
-A repository for Tickitz website.
+Tickitz is a user-friendly web application that simplifies the process of booking and purchasing movie tickets online. Users can search for movies showing in nearby theatres, select their preferred seats, and make secure payments using various methods. With Tickitz, users can enjoy an effortless and enjoyable movie-watching experience.
 
 <h2>💻 Built with</h2>
 
