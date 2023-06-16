@@ -93,6 +93,8 @@ export default function Sidebar(props) {
             setIsModalOpen(false);
             router.reload();
           }, 3000);
+          
+          dispatch(profileAction.getProfile({ token, controller }));
 
           return "Image succesfully deleted";
         },

@@ -1,18 +1,15 @@
 <h1 id="title" align="center">Tickitz Front End</h1>
 
-<p align="center"><img src="https://socialify.git.ci/hore-tim/tickitz-fe/image?description=1&amp;descriptionEditable=This%20is%20the%20repository%20for%20Tickitz%20website&amp;forks=1&amp;language=1&amp;name=1&amp;owner=1&amp;theme=Dark" alt="project-image"></p>
+Tickitz is a user-friendly web application that simplifies the process of booking and purchasing movie tickets online. Users can search for movies showing in nearby theatres, select their preferred seats, and make secure payments using various methods. With Tickitz, users can enjoy an effortless and enjoyable movie-watching experience.
 
-<p id="description">A repository for Tickitz website.</p>
+<h2>💻 Built with</h2>
 
-<h2>🚀 Demo</h2>
+Technologies used in the project:
 
-You can click it [here!](https://tickitz-id.vercel.app/)
-
-<h2>Project Screenshots:</h2>
-
-<img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot">
-
-<img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot">
+*   [NextJS](https://nextjs.org/)
+*   [Redux](https://github.com/reduxjs/redux)
+*   [TailwindCSS](https://tailwindcss.com/)
+*   [DaisyUI](https://daisyui.com/)
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -47,16 +44,31 @@ NEXT_PUBLIC_FE_URL = [YOUR HOST URL]
 npm run start
 ```
 
+<h2>🚀 Demo</h2>
 
+You can click it [here!](https://tickitz-id.vercel.app/)
 
-<h2>💻 Built with</h2>
+<h2>Project Screenshots:</h2>
 
-Technologies used in the project:
+<div style="display: flex; flex-wrap: wrap; gap: 0.5%;">
+  <img src="https://i.imgur.com/Siizxgu.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/d7tM3Wr.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/waDIvFk.png" alt="project-screenshot" width="45%">
+  <img src="https://i.imgur.com/6OasCr5.png" alt="project-screenshot" width="45%">
+</div>
 
-*   NextJS
-*   TailwindCSS
-*   DaisyUI
+<h2>👨‍💻 Contributors</h2>
+
+*   [M. Pria Admaja](https://github.com/priaadmaja) - Project manager & full-stack developer
+*   [Damar Anggoro](https://github.com/marrdamar) - Full-stack developer
+*   [Redha Definto](https://github/redhadefinto) - Back-end developer
+*   [Yanu Setiawan](https://github.com/yanu-setiawan) - Front-end developer
+*   [Akmal Susetio](https://github.com/wyakaga) - Front-end developer
 
 <h2>🛡️ License:</h2>
 
 This project is licensed under the ISC License
+
+<h2>Related Projects</h2>
+
+* [tickitz-be](https://github.com/hore-tim/tickitz-be) - back-end
