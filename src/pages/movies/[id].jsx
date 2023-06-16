@@ -16,8 +16,9 @@ import cover from "assets/images/spiderman.png";
 import ebv from "assets/icons/ebv.id.svg";
 import hiflix from "assets/icons/hiflix.svg";
 import cineone from "assets/icons/CineOne21.svg";
+import privateRoute from "utils/wrapper/privateRoute";
 
-export default function Details() {
+function Details() {
   const router = useRouter();
 
   const id = router.query.id;
@@ -218,7 +219,8 @@ export default function Details() {
             <div className="dropdown flex bg-[#EFF0F6] w-72 h-14 rounded-md px-6 cursor-pointer">
               <label
                 tabIndex={0}
-                className="flex justify-between items-center gap-x-3 w-full cursor-pointer">
+                className="flex justify-between items-center gap-x-3 w-full cursor-pointer"
+              >
                 <div className="flex gap-1 justify-center items-center">
                   <i className="bi bi-geo-alt-fill text-[1.2rem]"></i>
                   <p className="text-[1rem]">
@@ -231,7 +233,8 @@ export default function Details() {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-lg w-60">
+                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-lg w-60"
+              >
                 <li onClick={() => setLocation("Jakarta")}>
                   <p>Jakarta</p>
                 </li>
@@ -286,3 +289,5 @@ export default function Details() {
     </Layout>
   );
 }
+
+export default privateRoute(Details);
