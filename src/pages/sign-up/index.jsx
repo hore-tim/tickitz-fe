@@ -91,7 +91,7 @@ function Signup() {
 
   return (
     <>
-      <Title title="Register Success">
+      <Title title="Register">
         {isLoading ? <Loader /> : <></>}
         <main className=" flex w-full h-full ">
           <section className=" hero-auth hidden lg:flex w-[58%] flex-col ">
